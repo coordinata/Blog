@@ -1,11 +1,13 @@
 import React from "react";
-// import classes from './app.module.scss'
+import "./app.module.scss";
 import Header from "../header/header";
 
 const App = () => {
-    return(<div>
-        <Header/>
-    </div>)
-}
+  return (
+    <div>
+      <Header />
+    </div>
+  );
+};
 
-export default App
+export default App;

@@ -7,3 +7,17 @@ $blue: #1890ff;
 $green: #52c41a;
 $red: #f5222d;
 $background: #ebeef3;
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: $font-family-article;
+    // background-color: $background;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
