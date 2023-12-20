@@ -13,8 +13,6 @@ const Article = () => {
         </div>
         <div className={classes.wrapper2}>
           <p className={classes.user_name}>John Doe</p>
-         
-     
         </div>
         <div>
           <p className={classes.tag}>Tag1</p>
