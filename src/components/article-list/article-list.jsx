@@ -2,10 +2,8 @@ import React from "react";
 import Article from "../article/article";
 // import ArticleAll from "../article-all/article-all";
 import classes from "./article-list.module.scss";
-import { Pagination } from "antd";
 import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { useState, useEffect } from "react";
 
 const ArticleList = () => {
   const article = useSelector((state) => state.article.article);
@@ -21,7 +19,6 @@ const ArticleList = () => {
         ))}
       </ul>
       {/* <ArticleAll/> */}
-      <Pagination className={classes.pagination} total={20} />
     </div>
   );
 };

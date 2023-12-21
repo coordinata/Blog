@@ -7,9 +7,9 @@ const initialState = {
 
 export const getArticle = createAsyncThunk(
   "article/getArticle",
-  async (_, { rejectWithValue, dispatch }) => {
+  async (num = 0, { rejectWithValue, dispatch }) => {
     try {
-      const res = await axios.get("https://blog.kata.academy/api/articles");
+      const res = await axios.get(`https://blog.kata.academy/api/articles?offset=${num}&limit=5`);
       dispatch(setArticle(res.data.articles));
     } catch (error) {
       return rejectWithValue(error.message);
@@ -17,12 +17,13 @@ export const getArticle = createAsyncThunk(
   }
 );
 
+
 export const articleSlice = createSlice({
   name: "article",
   initialState,
   reducers: {
     setArticle: (state, action) => {
-      state.article.push(action.payload);
+      state.article = action.payload;
     },
   },
 });
