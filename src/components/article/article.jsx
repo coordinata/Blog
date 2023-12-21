@@ -1,34 +1,53 @@
 import React from "react";
 import classes from "./article.module.scss";
-import Avatar from "../../img/avatar.png";
+import { format } from "date-fns";
 
-const Article = () => {
+const Article = ({ article }) => {
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const formattedDate = format(date, "MMMM d, yyyy");
+    return formattedDate;
+  };
+
+  const truncateUsername = (username) => {
+    if (username.length > 10) {
+      return username.substring(0, 12) + "...";
+    }
+    return username;
+  };
+
   return (
-    <div>
-      <li className={classes.article}>
+    <div className={classes.article}>
+      <div>
+        <p className={classes.title}>{article.title}</p>
+        <button
+          onClick={console.log(article)}
+          className={classes.button_like}
+        ></button>
+        <p className={classes.num_like}>{article.favoritesCount}</p>
         <div>
-          <p className={classes.title}>Some article title</p>
-          <button className={classes.button_like}></button>
-          <p className={classes.num_like}>12</p>
-          <div>
-            <p className={classes.tag}>Tag1</p>
-          </div>
+          {article.tagList.slice(0, 5).map((tag, i) => (
+            <p className={classes.tag} key={i}>
+              {tag}
+            </p>
+          ))}
+        </div>
 
-          <p className={classes.text}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
-        </div>
-        <div>
-          <p className={classes.user_name}>John Doe</p>
-          <p className={classes.date}>March 5, 2020 </p>
-        </div>
-        <div>
-          <img className={classes.avatar} src={Avatar} alt="avatar" />
-        </div>
-      </li>
+        <p className={classes.text}>{article.description}</p>
+      </div>
+      <div>
+        <p className={classes.user_name}>
+          {truncateUsername(article.author.username)}
+        </p>
+        <p className={classes.date}>{formatDate(article.createdAt)}</p>
+      </div>
+      <div>
+        <img
+          className={classes.avatar}
+          src={article.author.image}
+          alt="avatar"
+        />
+      </div>
     </div>
   );
 };

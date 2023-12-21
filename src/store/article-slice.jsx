@@ -1,16 +1,31 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
-const initialState = { article: [] };
+const initialState = {
+  article: [],
+};
 
-const articleSlice = createSlice({
+export const getArticle = createAsyncThunk(
+  "article/getArticle",
+  async (_, { rejectWithValue, dispatch }) => {
+    try {
+      const res = await axios.get("https://blog.kata.academy/api/articles");
+      dispatch(setArticle(res.data.articles));
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const articleSlice = createSlice({
   name: "article",
   initialState,
   reducers: {
-    getArticle() {
-      console.log("lll");
+    setArticle: (state, action) => {
+      state.article.push(action.payload);
     },
   },
 });
 
-export const { getArticle } = articleSlice.actions;
+export const { setArticle } = articleSlice.actions;
 export default articleSlice.reducer;
