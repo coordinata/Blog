@@ -4,25 +4,24 @@ import Article from "../article/article";
 import classes from "./article-list.module.scss";
 import { Pagination } from "antd";
 import { useSelector } from "react-redux";
-import nextId from "react-id-generator";
+import { v4 as uuidv4 } from "uuid";
+import { useState, useEffect } from "react";
 
 const ArticleList = () => {
-  let id = nextId();
   const article = useSelector((state) => state.article.article);
-  const articles = article.flat()
-
+  const articles = article.flat();
 
   return (
     <div className={classes.wrapper}>
       <ul className={classes.tickets_list}>
         {articles.map((article) => (
-          <li key={id}>
+          <li key={uuidv4()}>
             <Article article={article} />
           </li>
         ))}
       </ul>
       {/* <ArticleAll/> */}
-      <Pagination className={classes.pagination} total={50} />
+      <Pagination className={classes.pagination} total={20} />
     </div>
   );
 };

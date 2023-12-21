@@ -20,10 +20,7 @@ const Article = ({ article }) => {
     <div className={classes.article}>
       <div>
         <p className={classes.title}>{article.title}</p>
-        <button
-          onClick={console.log(article)}
-          className={classes.button_like}
-        ></button>
+        <button className={classes.button_like}></button>
         <p className={classes.num_like}>{article.favoritesCount}</p>
         <div>
           {article.tagList.slice(0, 5).map((tag, i) => (
