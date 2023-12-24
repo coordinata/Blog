@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./article-all.module.scss";
+import classes from "./article-full-card.module.scss";
 import Avatar from "../../img/avatar.png";
 
 const ArticleAll = () => {

@@ -1,48 +1,41 @@
 import React from "react";
-import classes from "./article.module.scss";
+import classes from "./article-card.module.scss";
 import { format } from "date-fns";
-import Markdown from 'react-markdown'
+// import Markdown from 'react-markdown'
 
-const Article = ({ article }) => {
+const ArticleCard = ({ article }) => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const formattedDate = format(date, "MMMM d, yyyy");
     return formattedDate;
   };
 
-  const truncateUsername = (username) => {
-    if (username.length > 12) {
-      return username.substring(0, 12) + "...";
+  const truncateContent = (content, num) => {
+    if (content.length > num) {
+      return content.substring(0, num) + "...";
     }
-    return username;
-  };
-
-  const truncateTitle = (title) => {
-    if (title.length > 80) {
-      return title.substring(0, 80) + "...";
-    }
-    return title;
+    return content;
   };
 
   return (
     <div className={classes.article}>
       <div>
-        <p className={classes.title}>{truncateTitle(article.title)}</p>
+        <p className={classes.title}>{truncateContent(article.title, 30)}</p>
         <button className={classes.button_like}></button>
         <p className={classes.num_like}>{article.favoritesCount}</p>
         <div>
           {article.tagList.slice(0, 5).map((tag, i) => (
             <p className={classes.tag} key={i}>
-              {tag}
+              {truncateContent(tag, 15)}
             </p>
           ))}
         </div>
 
-        <p className={classes.text}>{article.description}</p>
+        <p className={classes.description}>{truncateContent(article.description, 125)}</p>
       </div>
       <div>
         <p className={classes.user_name}>
-          {truncateUsername(article.author.username)}
+          {truncateContent(article.author.username, 12)}
         </p>
         <p className={classes.date}>{formatDate(article.createdAt)}</p>
       </div>
@@ -53,11 +46,8 @@ const Article = ({ article }) => {
           alt="avatar"
         />
       </div>
-      <div>
-        <Markdown>{article.body}</Markdown>
-      </div>
     </div>
   );
 };
 
-export default Article;
+export default ArticleCard;

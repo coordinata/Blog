@@ -2,15 +2,18 @@ import React from "react";
 import "./app.module.scss";
 import Header from "../header/header";
 import ArticleList from "../article-list/article-list";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 // import { getId } from "../../store/id-slice";
 import { getArticle } from "../../store/article-slice";
 import { Pagination } from "antd";
 import classes from "./app.module.scss";
 import { useState } from "react";
+import { Alert, Spin } from "antd";
 
 const App = () => {
+  const loading = useSelector((state) => state.article.loading);
+  const error = useSelector((state) => state.article.error);
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -22,20 +25,26 @@ const App = () => {
     setCurrentPage(page);
   };
 
-  return (
-    <div>
-      <Header />
-      <ArticleList />
-      <Pagination
-        className={classes.pagination}
-        onChange={onChangePg}
-        pageSize={5}
-        total={300}
-        hideOnSinglePage={true}
-        showSizeChanger={false}
-      />
-    </div>
-  );
+  if (loading) {
+    return <Spin></Spin>;
+  } else if (error) {
+    return <Alert type="error">An error has occurred</Alert>;
+  } else {
+    return (
+      <div>
+        <Header />
+        <ArticleList />
+        <Pagination
+          className={classes.pagination}
+          onChange={onChangePg}
+          pageSize={5}
+          total={600}
+          hideOnSinglePage={true}
+          showSizeChanger={false}
+        />
+      </div>
+    );
+  }
 };
 
 export default App;

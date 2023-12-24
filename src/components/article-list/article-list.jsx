@@ -1,6 +1,5 @@
 import React from "react";
-import Article from "../article/article";
-// import ArticleAll from "../article-all/article-all";
+import ArticleCard from "../article-card/article-card";
 import classes from "./article-list.module.scss";
 import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
@@ -14,11 +13,10 @@ const ArticleList = () => {
       <ul className={classes.tickets_list}>
         {articles.map((article) => (
           <li key={uuidv4()}>
-            <Article article={article} />
+            <ArticleCard article={article} />
           </li>
         ))}
       </ul>
-      {/* <ArticleAll/> */}
     </div>
   );
 };
