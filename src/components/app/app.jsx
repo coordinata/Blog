@@ -52,7 +52,7 @@ const App = () => {
               </>
             }
           />
-          <Route path="/123" element={<ArticleFullCard />} />
+          <Route path="/article/:slug" element={<ArticleFullCard />} />
         </Routes>
       </div>
     );

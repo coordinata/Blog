@@ -1,50 +1,48 @@
 import React from "react";
 import classes from "./article-full-card.module.scss";
-import Avatar from "../../img/avatar.png";
+import { useSelector } from "react-redux";
+import { format } from "date-fns";
+import Markdown from "react-markdown";
 
 const ArticleAll = () => {
+  const article = useSelector((state) => state.slug.slugData);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const formattedDate = format(date, "MMMM d, yyyy");
+    return formattedDate;
+  };
+
   return (
     <div>
       <li className={classes.article_wrapper}>
         <div className={classes.article}>
           <div>
-            <p className={classes.title}>Some article title</p>
+            <p className={classes.title}>{article.title}</p>
             <button className={classes.button_like}></button>
-            <p className={classes.num_like}>12</p>
+            <p className={classes.num_like}>{article.favoritesCount}</p>
             <div>
-              <p className={classes.tag}>Tag1</p>
+              {article.tagList.map((tag, i) => (
+                <p className={classes.tag} key={i}>
+                  {tag}
+                </p>
+              ))}
             </div>
-
-            <p className={classes.text}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
+            <p className={classes.description}>{article.description}</p>
           </div>
           <div>
-            <p className={classes.user_name}>John Doe</p>
-            <p className={classes.date}>March 5, 2020 </p>
+            <p className={classes.user_name}>{article.author.user_name}</p>
+            <p className={classes.date}>{formatDate(article.createdAt)}</p>
           </div>
           <div>
-            <img className={classes.avatar} src={Avatar} alt="avatar" />
+            <img
+              className={classes.avatar}
+              src={article.author.image}
+              alt="avatar"
+            />
           </div>
         </div>
-        <p className={classes.text_all}>
-          Est Ampyciden pater patent Amor saxa inpiger Lorem markdownum Stygias
-          neque is referam fudi, breve per. Et Achaica tamen: nescia ista
-          occupat, illum se ad potest humum et. Qua deos has fontibus Recens nec
-          ferro responsaque dedere armenti opes momorderat pisce, vitataque et
-          fugisse. Et iamque incipiens, qua huius suo omnes ne pendentia citus
-          pedum. Quamvis pronuba Ulli labore facta. Io cervis non nosterque
-          nullae, vides: aethere Delphice subit, tamen Romane ob cubilia
-          Rhodopen calentes librata! Nihil populorum flava, inrita? Sit hic
-          nunc, hoc formae Esse illo? Umeris eram similis, crudelem de est
-          relicto ingemuit finiat Pelia uno cernunt Venus draconem, hic,
-          Methymnaeae. 1. Clamoribus haesit tenentem iube Haec munera 2. Vincla
-          venae 3. Paris includere etiam tamen 4. Superi te putria imagine
-          Deianira 5. Tremore hoste Esse sed perstat capillis siqua
-        </p>
+        <Markdown className={classes.text_all}>{article.body}</Markdown>
       </li>
     </div>
   );

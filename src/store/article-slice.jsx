@@ -9,13 +9,14 @@ const initialState = {
 
 export const getArticle = createAsyncThunk(
   "article/getArticle",
-  async (num = 0, { rejectWithValue, dispatch }) => {
+  async (num = 0) => {
     const res = await axios.get(
       `https://blog.kata.academy/api/articles?offset=${num}&limit=5`
     );
     return res.data.articles;
   }
 );
+
 
 export const articleSlice = createSlice({
   name: "article",

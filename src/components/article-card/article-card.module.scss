@@ -18,6 +18,10 @@
     font-size: 20px;
     margin-right: 13px;
     display: inline;
+    
+    &:hover {
+      color: #1619e3;
+    }
   }
 
   .user_name {

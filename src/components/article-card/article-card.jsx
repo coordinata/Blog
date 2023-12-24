@@ -2,9 +2,18 @@ import React from "react";
 import classes from "./article-card.module.scss";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
-// import Markdown from 'react-markdown'
+import { useEffect } from "react";
+import { getSlugData } from "../../store/slug-slice";
+
+import { useDispatch } from "react-redux";
 
 const ArticleCard = ({ article }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getSlugData(article.slug));
+  }, [article.slug, dispatch]);
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const formattedDate = format(date, "MMMM d, yyyy");
@@ -21,7 +30,7 @@ const ArticleCard = ({ article }) => {
   return (
     <div className={classes.article}>
       <div>
-        <Link to="/123">
+        <Link to={`/article/:${article.slug}`}>
           <p className={classes.title}>{truncateContent(article.title, 30)}</p>
         </Link>
         <button className={classes.button_like}></button>
