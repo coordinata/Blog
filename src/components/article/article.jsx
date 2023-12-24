@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./article.module.scss";
 import { format } from "date-fns";
+import Markdown from 'react-markdown'
 
 const Article = ({ article }) => {
   const formatDate = (dateString) => {
@@ -10,16 +11,23 @@ const Article = ({ article }) => {
   };
 
   const truncateUsername = (username) => {
-    if (username.length > 10) {
+    if (username.length > 12) {
       return username.substring(0, 12) + "...";
     }
     return username;
   };
 
+  const truncateTitle = (title) => {
+    if (title.length > 80) {
+      return title.substring(0, 80) + "...";
+    }
+    return title;
+  };
+
   return (
     <div className={classes.article}>
       <div>
-        <p className={classes.title}>{article.title}</p>
+        <p className={classes.title}>{truncateTitle(article.title)}</p>
         <button className={classes.button_like}></button>
         <p className={classes.num_like}>{article.favoritesCount}</p>
         <div>
@@ -44,6 +52,9 @@ const Article = ({ article }) => {
           src={article.author.image}
           alt="avatar"
         />
+      </div>
+      <div>
+        <Markdown>{article.body}</Markdown>
       </div>
     </div>
   );

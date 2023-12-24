@@ -19,7 +19,7 @@ const App = () => {
   }, [dispatch, currentPage]);
 
   const onChangePg = (page) => {
-    setCurrentPage(page); 
+    setCurrentPage(page);
   };
 
   return (
@@ -33,7 +33,6 @@ const App = () => {
         total={300}
         hideOnSinglePage={true}
         showSizeChanger={false}
-    
       />
     </div>
   );
