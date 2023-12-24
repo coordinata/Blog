@@ -10,6 +10,10 @@ import { useDispatch } from "react-redux";
 const ArticleCard = ({ article }) => {
   const dispatch = useDispatch();
 
+  const clickTitle = () => {
+    dispatch(getSlugData(article.slug));
+  };
+
   useEffect(() => {
     dispatch(getSlugData(article.slug));
   }, [article.slug, dispatch]);
@@ -30,17 +34,20 @@ const ArticleCard = ({ article }) => {
   return (
     <div className={classes.article}>
       <div>
-        <Link to={`/article/:${article.slug}`}>
-          <p className={classes.title}>{truncateContent(article.title, 30)}</p>
+        <Link to={`/article/${article.slug}`}>
+          <p className={classes.title} onClick={clickTitle}>
+            {truncateContent(article.title, 30)}
+          </p>
         </Link>
         <button className={classes.button_like}></button>
         <p className={classes.num_like}>{article.favoritesCount}</p>
         <div>
-          {article.tagList.slice(0, 5).map((tag, i) => (
-            <p className={classes.tag} key={i}>
-              {truncateContent(tag, 15)}
-            </p>
-          ))}
+          {article.tagList &&
+            article.tagList.slice(0, 5).map((tag, i) => (
+              <p className={classes.tag} key={i}>
+                {truncateContent(tag, 15)}
+              </p>
+            ))}
         </div>
 
         <p className={classes.description}>
