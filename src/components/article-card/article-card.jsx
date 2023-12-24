@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./article-card.module.scss";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
 // import Markdown from 'react-markdown'
 
 const ArticleCard = ({ article }) => {
@@ -20,7 +21,9 @@ const ArticleCard = ({ article }) => {
   return (
     <div className={classes.article}>
       <div>
-        <p className={classes.title}>{truncateContent(article.title, 30)}</p>
+        <Link to="/123">
+          <p className={classes.title}>{truncateContent(article.title, 30)}</p>
+        </Link>
         <button className={classes.button_like}></button>
         <p className={classes.num_like}>{article.favoritesCount}</p>
         <div>
@@ -31,7 +34,9 @@ const ArticleCard = ({ article }) => {
           ))}
         </div>
 
-        <p className={classes.description}>{truncateContent(article.description, 125)}</p>
+        <p className={classes.description}>
+          {truncateContent(article.description, 125)}
+        </p>
       </div>
       <div>
         <p className={classes.user_name}>

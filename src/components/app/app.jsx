@@ -10,6 +10,8 @@ import { Pagination } from "antd";
 import classes from "./app.module.scss";
 import { useState } from "react";
 import { Alert, Spin } from "antd";
+import { Routes, Route } from "react-router-dom";
+import ArticleFullCard from "../article-full-card/article-full-card";
 
 const App = () => {
   const loading = useSelector((state) => state.article.loading);
@@ -33,15 +35,25 @@ const App = () => {
     return (
       <div>
         <Header />
-        <ArticleList />
-        <Pagination
-          className={classes.pagination}
-          onChange={onChangePg}
-          pageSize={5}
-          total={600}
-          hideOnSinglePage={true}
-          showSizeChanger={false}
-        />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <ArticleList />
+                <Pagination
+                  className={classes.pagination}
+                  onChange={onChangePg}
+                  pageSize={5}
+                  total={600}
+                  hideOnSinglePage={true}
+                  showSizeChanger={false}
+                />
+              </>
+            }
+          />
+          <Route path="/123" element={<ArticleFullCard />} />
+        </Routes>
       </div>
     );
   }

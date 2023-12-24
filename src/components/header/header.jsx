@@ -1,11 +1,14 @@
 import React from "react";
 import classes from "./header.module.scss";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <header className={classes.header}>
       <div>
-        <p className={classes.title}>Realworld Blog</p>
+        <Link to="/">
+          <p className={classes.title}>Realworld Blog</p>
+        </Link>
       </div>
       <div>
         <button className={classes.button_sign_in}>Sign In</button>
