@@ -17,7 +17,7 @@ const App = () => {
   const loading = useSelector((state) => state.article.loading);
   const error = useSelector((state) => state.article.error);
   const dispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1); 
 
   useEffect(() => {
     dispatch(getArticle(currentPage));
@@ -30,7 +30,11 @@ const App = () => {
   if (loading) {
     return <Spin className={classes.spin}></Spin>;
   } else if (error) {
-    return <Alert type="error" className={classes.loading}>An error has occurred</Alert>;
+    return (
+      <Alert type="error" className={classes.loading}>
+        An error has occurred
+      </Alert>
+    );
   } else {
     return (
       <div>
@@ -43,9 +47,10 @@ const App = () => {
                 <ArticleList />
                 <Pagination
                   className={classes.pagination}
+                  current={currentPage} // Укажем текущую страницу
                   onChange={onChangePg}
                   pageSize={5}
-                  total={600}
+                  total={300}
                   hideOnSinglePage={true}
                   showSizeChanger={false}
                 />
