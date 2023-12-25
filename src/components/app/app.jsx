@@ -28,9 +28,9 @@ const App = () => {
   };
 
   if (loading) {
-    return <Spin></Spin>;
+    return <Spin className={classes.spin}></Spin>;
   } else if (error) {
-    return <Alert type="error">An error has occurred</Alert>;
+    return <Alert type="error" className={classes.loading}>An error has occurred</Alert>;
   } else {
     return (
       <div>
