@@ -12,12 +12,16 @@ import { useState } from "react";
 import { Alert, Spin } from "antd";
 import { Routes, Route } from "react-router-dom";
 import ArticleFullCard from "../article-full-card/article-full-card";
+import SignIn from "../sign-in/sign-in";
+import SignUp from "../sign-up/sign-up";
+import EditProfile from "../edit-profile/edit-profile";
+import HeaderAccount from "../header-account/header-account";
 
 const App = () => {
   const loading = useSelector((state) => state.article.loading);
   const error = useSelector((state) => state.article.error);
   const dispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState(1); 
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     dispatch(getArticle(currentPage));
@@ -38,12 +42,12 @@ const App = () => {
   } else {
     return (
       <div>
-        <Header />
         <Routes>
           <Route
             path="/"
             element={
               <>
+                <Header />
                 <ArticleList />
                 <Pagination
                   className={classes.pagination}
@@ -57,7 +61,43 @@ const App = () => {
               </>
             }
           />
-          <Route path="/article/:slug" element={<ArticleFullCard />} />
+          <Route
+            path="/article/:slug"
+            element={
+              <>
+                <Header />
+                <ArticleFullCard />
+              </>
+            }
+          />
+          <Route
+            path="/sign-in"
+            element={
+              <>
+                <Header />
+                <SignIn />
+              </>
+            }
+          />
+          <Route
+            path="/sign-up"
+            element={
+              <>
+                <Header />
+                <SignUp />
+              </>
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <>
+                <HeaderAccount />
+                <EditProfile />
+              </>
+            }
+          />
         </Routes>
       </div>
     );

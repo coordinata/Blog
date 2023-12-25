@@ -11,8 +11,16 @@ const Header = () => {
         </Link>
       </div>
       <div>
-        <button className={classes.button_sign_in}>Sign In</button>
-        <button className={classes.button_sign_up}>Sign Up</button>
+        <Link to="/profile">
+          <button>ppp</button>
+        </Link>
+
+        <Link to="/sign-in">
+          <button className={classes.button_sign_in}>Sign In</button>
+        </Link>
+        <Link to="/sign-up">
+          <button className={classes.button_sign_up}>Sign Up</button>
+        </Link>
       </div>
     </header>
   );
