@@ -17,8 +17,11 @@ const HeaderAccount = () => {
             Create article
           </button>
         </Link>
-        <p className={classes.user_name}>John Doe</p>
-        <img src={Avatar} alt="avatar" className={classes.avatar} />
+        <Link to="/profile">
+          <p className={classes.user_name}>John Doe</p>
+          <img src={Avatar} alt="avatar" className={classes.avatar} />
+        </Link>
+
         <Link>
           <button className={classes.button_log_out}>Log Out</button>
         </Link>
