@@ -22,6 +22,7 @@ const App = () => {
   const error = useSelector((state) => state.article.error);
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
+  const login = useSelector((state) => state.user.loginUser);
 
   useEffect(() => {
     dispatch(getArticle(currentPage));
@@ -47,7 +48,7 @@ const App = () => {
             path="/"
             element={
               <>
-                <Header />
+                {login ? <HeaderAccount /> : <Header />}
                 <ArticleList />
                 <Pagination
                   className={classes.pagination}
@@ -65,7 +66,7 @@ const App = () => {
             path="/article/:slug"
             element={
               <>
-                <Header />
+                {login ? <HeaderAccount /> : <Header />}
                 <ArticleFullCard />
               </>
             }
@@ -74,7 +75,7 @@ const App = () => {
             path="/sign-in"
             element={
               <>
-                <Header />
+                {login ? <HeaderAccount /> : <Header />}
                 <SignIn />
               </>
             }
@@ -83,7 +84,7 @@ const App = () => {
             path="/sign-up"
             element={
               <>
-                <Header />
+                {login ? <HeaderAccount /> : <Header />}
                 <SignUp />
               </>
             }
@@ -93,7 +94,7 @@ const App = () => {
             path="/profile"
             element={
               <>
-                <HeaderAccount />
+                {login ? <HeaderAccount /> : <Header />}
                 <EditProfile />
               </>
             }

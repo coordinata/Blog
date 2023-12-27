@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { postCreateUser } from "../../store/user-slice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -12,8 +14,13 @@ const SignUp = () => {
 
   const dispatch = useDispatch();
 
+  const notify = () => {
+    toast.success("You have successfully logged in to your account!");
+  };
+
   const createUser = () => {
-    dispatch(postCreateUser({name, email, password}));
+    dispatch(postCreateUser({ name, email, password }));
+    notify();
   };
 
   const changeUserName = (event) => {
@@ -75,6 +82,18 @@ const SignUp = () => {
       <button className={classes.create_btn} onClick={createUser}>
         Create
       </button>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <p className={classes.text}>
         Already have an account?{" "}
         <Link to="/sign-in" className={classes.text_sign_in}>

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import Avatar from "../../img/avatar.png";
 
 const HeaderAccount = () => {
+  const userName = localStorage.getItem("userName");
+
   return (
     <header className={classes.header}>
       <div>
@@ -18,7 +20,7 @@ const HeaderAccount = () => {
           </button>
         </Link>
         <Link to="/profile">
-          <p className={classes.user_name}>John Doe</p>
+          <p className={classes.user_name}>{userName}</p>
           <img src={Avatar} alt="avatar" className={classes.avatar} />
         </Link>
 

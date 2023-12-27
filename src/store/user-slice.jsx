@@ -5,6 +5,8 @@ const initialState = {
   loginUser: false,
   loading: false,
   error: false,
+  name: "",
+  avatar: "",
 };
 
 export const postCreateUser = createAsyncThunk(
@@ -17,6 +19,8 @@ export const postCreateUser = createAsyncThunk(
         password: password,
       },
     });
+    localStorage.setItem("userName", res.data.user.username);
+    localStorage.setItem("token", res.data.user.token);
     console.log(res.data);
     return res.data;
   }
@@ -24,13 +28,14 @@ export const postCreateUser = createAsyncThunk(
 
 export const postLoginUser = createAsyncThunk(
   "loginUser/postLoginUser",
-  async ({email, password}) => {
+  async ({ email, password }) => {
     const res = await axios.post("https://blog.kata.academy/api/users/login", {
       user: {
         email: email,
         password: password,
       },
     });
+    localStorage.setItem("token", res.data.user.token);
     console.log(res.data);
     return res.data;
   }
