@@ -61,7 +61,7 @@ const SignIn = () => {
               maxLength: {
                 value: 40,
                 message: "Maximum 40 characters!",
-              }
+              },
             })}
             className={classes.password_input}
             type="password"
@@ -74,9 +74,10 @@ const SignIn = () => {
 
         <input
           type="submit"
+          value="Login"
           disabled={!isValid}
           className={classes.login_btn}
-        ></input>
+        />
       </form>
       <ToastContainer
         position="bottom-right"

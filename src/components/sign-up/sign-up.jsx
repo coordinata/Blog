@@ -3,14 +3,20 @@ import classes from "./sign-up.module.scss";
 import { Link } from "react-router-dom";
 import { postCreateUser } from "../../store/user-slice";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.css";
+import { useForm } from "react-hook-form";
 
 const SignUp = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    formState: { errors, isValid },
+    handleSubmit,
+    reset,
+  } = useForm({
+    mode: "onChange",
+  });
 
   const dispatch = useDispatch();
 
@@ -18,60 +24,78 @@ const SignUp = () => {
     toast.success("You have successfully logged in to your account!");
   };
 
-  const createUser = () => {
-    dispatch(postCreateUser({ name, email, password }));
+  const onSubmit = (data) => {
+    dispatch(postCreateUser(data));
+    reset();
     notify();
-    setName(""); // Очистить поле name
-    setEmail(""); // Очистить поле email
-    setPassword(""); // Очистить поле password
-  };
-
-  const changeUserName = (event) => {
-    setName(event.target.value);
-  };
-
-  const changeEmail = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const changePassword = (event) => {
-    setPassword(event.target.value);
   };
 
   return (
     <div className={classes.wrapper}>
       <h1 className={classes.title}>Create new account</h1>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label className={classes.username}>
           Username
           <input
+            {...register("username", {
+              required: "Incorrect username!",
+              minLength: {
+                value: 3,
+                message: "Minimum 3 characters!",
+              },
+              maxLength: {
+                value: 20,
+                message: "Maximum 20 characters!",
+              },
+            })}
             className={classes.username_input}
-            value={name}
             type="text"
             placeholder="Username"
-            onChange={changeUserName}
           ></input>
         </label>
+        <div className={classes.error}>
+          {errors?.username && <p>{errors?.username?.message}</p>}
+        </div>
         <label className={classes.email}>
           Email address
           <input
+            {...register("email", {
+              required: "Incorrect email!",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
+                message: "Incorrect email!",
+              },
+            })}
             className={classes.email_input}
-            value={email}
             type="email"
             placeholder="Email address"
-            onChange={changeEmail}
           />
         </label>
+        <div className={classes.error}>
+          {errors?.email && <p>{errors?.email?.message}</p>}
+        </div>
         <label className={classes.password}>
           Password
           <input
+            {...register("password", {
+              required: "Incorrect password!",
+              minLength: {
+                value: 6,
+                message: "Minimum 6 characters!",
+              },
+              maxLength: {
+                value: 40,
+                message: "Maximum 40 characters!",
+              },
+            })}
             className={classes.password_input}
-            value={password}
             type="password"
             placeholder="Password"
-            onChange={changePassword}
           />
         </label>
+        <div className={classes.error_password}>
+          {errors?.password && <p>{errors?.password?.message}</p>}
+        </div>
         <label className={classes.repeat_password}>
           Repeat Password
           <input
@@ -85,9 +109,13 @@ const SignUp = () => {
           the processing of my personal information
         </label>
       </form>
-      <button className={classes.create_btn} onClick={createUser}>
-        Create
-      </button>
+      <input
+        type="submit"
+        value="Create"
+        disabled={!isValid}
+        className={classes.create_btn}
+      />
+
       <ToastContainer
         position="bottom-right"
         autoClose={5000}
