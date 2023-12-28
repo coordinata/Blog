@@ -1,65 +1,83 @@
 import React from "react";
 import classes from "./sign-in.module.scss";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+// import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postLoginUser } from "../../store/user-slice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useForm } from "react-hook-form";
 
 const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
+  const notify = () => toast.success("You have successfully logged!");
   const dispatch = useDispatch();
 
-  const notify = () => {
-    toast.success("You have successfully created an account!");
-  };
+  const {
+    register,
+    formState: { errors, isValid },
+    handleSubmit,
+    reset,
+  } = useForm({
+    mode: "onChange",
+  });
 
-  const loginUser = () => {
-    dispatch(postLoginUser({ email, password }));
+  const onSubmit = (data) => {
+    dispatch(postLoginUser(data));
+    reset();
     notify();
-    setEmail("");
-    setPassword(""); 
-  };
-
-  const changeEmail = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const changePassword = (event) => {
-    setPassword(event.target.value);
   };
 
   return (
     <div className={classes.wrapper}>
       <h1 className={classes.title}>Sign In</h1>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label className={classes.email}>
           Email address
           <input
-            value={email}
-            onChange={changeEmail}
+            {...register("email", {
+              required: "Incorrect email!",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
+                message: "Incorrect email!",
+              },
+            })}
             className={classes.email_input}
             type="email"
             placeholder="Email address"
           />
         </label>
+        <div className={classes.error}>
+          {errors?.email && <p>{errors?.email?.message}</p>}
+        </div>
         <label className={classes.password}>
           Password
           <input
-            value={password}
-            onChange={changePassword}
+            {...register("password", {
+              required: "Incorrect password!",
+              minLength: {
+                value: 6,
+                message: "Minimum 6 characters!",
+              },
+              maxLength: {
+                value: 40,
+                message: "Maximum 40 characters!",
+              }
+            })}
             className={classes.password_input}
             type="password"
             placeholder="Password"
           />
+          <div className={classes.error_password}>
+            {errors?.password && <p>{errors?.password?.message}</p>}
+          </div>
         </label>
+
+        <input
+          type="submit"
+          disabled={!isValid}
+          className={classes.login_btn}
+        ></input>
       </form>
-      <button className={classes.login_btn} onClick={loginUser}>
-        Login
-      </button>
       <ToastContainer
         position="bottom-right"
         autoClose={5000}
