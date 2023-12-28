@@ -20,6 +20,8 @@ const SignIn = () => {
   const loginUser = () => {
     dispatch(postLoginUser({ email, password }));
     notify();
+    setEmail("");
+    setPassword(""); 
   };
 
   const changeEmail = (event) => {
@@ -37,6 +39,7 @@ const SignIn = () => {
         <label className={classes.email}>
           Email address
           <input
+            value={email}
             onChange={changeEmail}
             className={classes.email_input}
             type="email"
@@ -46,6 +49,7 @@ const SignIn = () => {
         <label className={classes.password}>
           Password
           <input
+            value={password}
             onChange={changePassword}
             className={classes.password_input}
             type="password"

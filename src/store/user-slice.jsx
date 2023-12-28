@@ -26,6 +26,30 @@ export const postCreateUser = createAsyncThunk(
   }
 );
 
+export const putUpdateUser = createAsyncThunk(
+  "updateUser/putUpdateUser",
+  async ({ email, name, password, avatar }) => {
+    const res = await axios.put(
+      "https://blog.kata.academy/api/user",
+      {
+        user: {
+          email: email,
+          username: name,
+          password: password,
+          image: avatar,
+        },
+      },
+      {
+        headers: {
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    console.log(res.data);
+    return res.data;
+  }
+);
+
 export const postLoginUser = createAsyncThunk(
   "loginUser/postLoginUser",
   async ({ email, password }) => {
@@ -49,6 +73,9 @@ export const userSlice = createSlice({
       state.loginUser = true;
     },
     setLoginUser: (state, action) => {
+      state.loginUser = true;
+    },
+    setUpdateUser: (state, action) => {
       state.loginUser = true;
     },
   },
@@ -77,8 +104,20 @@ export const userSlice = createSlice({
       state.loading = false;
       state.error = true;
     },
+    [putUpdateUser.pending]: (state, action) => {
+      state.loading = true;
+      state.error = false;
+    },
+    [putUpdateUser.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.loginUser = true;
+    },
+    [putUpdateUser.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = true;
+    },
   },
 });
 
-export const { createUser, loginUser } = userSlice.actions;
+export const { createUser, loginUser, updateUser } = userSlice.actions;
 export default userSlice.reducer;

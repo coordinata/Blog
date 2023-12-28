@@ -21,6 +21,9 @@ const SignUp = () => {
   const createUser = () => {
     dispatch(postCreateUser({ name, email, password }));
     notify();
+    setName(""); // Очистить поле name
+    setEmail(""); // Очистить поле email
+    setPassword(""); // Очистить поле password
   };
 
   const changeUserName = (event) => {
@@ -43,6 +46,7 @@ const SignUp = () => {
           Username
           <input
             className={classes.username_input}
+            value={name}
             type="text"
             placeholder="Username"
             onChange={changeUserName}
@@ -52,6 +56,7 @@ const SignUp = () => {
           Email address
           <input
             className={classes.email_input}
+            value={email}
             type="email"
             placeholder="Email address"
             onChange={changeEmail}
@@ -61,6 +66,7 @@ const SignUp = () => {
           Password
           <input
             className={classes.password_input}
+            value={password}
             type="password"
             placeholder="Password"
             onChange={changePassword}
