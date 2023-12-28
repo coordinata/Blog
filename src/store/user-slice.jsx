@@ -11,10 +11,10 @@ const initialState = {
 
 export const postCreateUser = createAsyncThunk(
   "createUser/postCreateUser",
-  async ({ name, email, password }) => {
+  async ({ username, email, password }) => {
     const res = await axios.post("https://blog.kata.academy/api/users/", {
       user: {
-        username: name,
+        username: username,
         email: email,
         password: password,
       },

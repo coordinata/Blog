@@ -21,7 +21,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
 
   const notify = () => {
-    toast.success("You have successfully logged in to your account!");
+    toast.success("You have successfully registered!");
   };
 
   const onSubmit = (data) => {
@@ -105,9 +105,16 @@ const SignUp = () => {
           />
         </label>
         <label className={classes.checkbox}>
-          <input type="checkbox" className={classes.checkbox_input} />I agree to
-          the processing of my personal information
+          <input
+            {...register("agree", { required: "You must agree to the terms" })}
+            type="checkbox"
+            className={classes.checkbox_input}
+          />
+          I agree to the processing of my personal information
         </label>
+        <div className={classes.agree}>
+          {errors?.agree && <p>{errors?.agree?.message}</p>}
+        </div>
       </form>
       <input
         type="submit"
