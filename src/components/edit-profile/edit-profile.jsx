@@ -3,6 +3,8 @@ import classes from "./edit-profile.module.scss";
 import { putUpdateUser } from "../../store/user-slice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditProfile = () => {
   const [email, setEmail] = useState("");
@@ -11,8 +13,17 @@ const EditProfile = () => {
   const [name, setName] = useState("");
   const dispatch = useDispatch();
 
+  const notify = () => {
+    toast.success("The information has been successfully updated!");
+  };
+
   const editUser = () => {
     dispatch(putUpdateUser({ email, name, password, avatar }));
+    notify()
+    setEmail("");
+    setPassword(""); 
+    setAvatar("");
+    setName(""); 
   };
 
   const changeEmail = (event) => {
@@ -79,6 +90,18 @@ const EditProfile = () => {
       <button className={classes.save_btn} onClick={editUser}>
         Save
       </button>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
