@@ -40,7 +40,7 @@ const App = () => {
         An error has occurred
       </Alert>
     )
-    
+
   } else {
     return (
       <div>
@@ -49,11 +49,11 @@ const App = () => {
             path="/"
             element={
               <>
-                {login !== null ? <HeaderAccount /> : <Header />}
+                {login ? <HeaderAccount /> : <Header />}
                 <ArticleList />
                 <Pagination
                   className={classes.pagination}
-                  current={currentPage} // Укажем текущую страницу
+                  current={currentPage} 
                   onChange={onChangePg}
                   pageSize={5}
                   total={300}
