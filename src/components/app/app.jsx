@@ -39,7 +39,8 @@ const App = () => {
       <Alert type="error" className={classes.loading}>
         An error has occurred
       </Alert>
-    );
+    )
+    
   } else {
     return (
       <div>
