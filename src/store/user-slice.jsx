@@ -28,15 +28,15 @@ export const postCreateUser = createAsyncThunk(
 
 export const putUpdateUser = createAsyncThunk(
   "updateUser/putUpdateUser",
-  async ({ email, name, password, avatar }) => {
+  async ({ username, email, password, url }) => {
     const res = await axios.put(
       "https://blog.kata.academy/api/user",
       {
         user: {
           email: email,
-          username: name,
+          username: username,
           password: password,
-          image: avatar,
+          image: url,
         },
       },
       {

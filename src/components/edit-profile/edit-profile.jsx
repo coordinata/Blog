@@ -1,95 +1,123 @@
 import React from "react";
 import classes from "./edit-profile.module.scss";
 import { putUpdateUser } from "../../store/user-slice";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useForm } from "react-hook-form";
 
 const EditProfile = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [avatar, setAvatar] = useState("");
-  const [name, setName] = useState("");
+  const {
+    register,
+    formState: { errors, isValid },
+    handleSubmit,
+    reset,
+  } = useForm({
+    mode: "onChange",
+  });
+
   const dispatch = useDispatch();
 
   const notify = () => {
     toast.success("The information has been successfully updated!");
   };
 
-  const editUser = () => {
-    dispatch(putUpdateUser({ email, name, password, avatar }));
-    notify()
-    setEmail("");
-    setPassword(""); 
-    setAvatar("");
-    setName(""); 
-  };
-
-  const changeEmail = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const changePassword = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const changeAvatar = (event) => {
-    setAvatar(event.target.value);
-  };
-
-  const changeName = (event) => {
-    setName(event.target.value);
+  const onSubmit = (data) => {
+    dispatch(putUpdateUser(data));
+    reset();
+    notify();
   };
 
   return (
     <div className={classes.wrapper}>
       <h1 className={classes.title}>Edit Profile</h1>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label className={classes.username}>
           Username
           <input
+            {...register("username", {
+              required: "Incorrect username!",
+              minLength: {
+                value: 3,
+                message: "Minimum 3 characters!",
+              },
+              maxLength: {
+                value: 20,
+                message: "Maximum 20 characters!",
+              },
+            })}
             className={classes.username_input}
-            value={name}
             type="text"
             placeholder="Username"
-            onChange={changeName}
           ></input>
         </label>
+        <div className={classes.error}>
+          {errors?.username && <p>{errors?.username?.message}</p>}
+        </div>
         <label className={classes.email}>
           Email address
           <input
-            value={email}
+            {...register("email", {
+              required: "Incorrect email!",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
+                message: "Incorrect email!",
+              },
+            })}
             className={classes.email_input}
             type="email"
             placeholder="Email address"
-            onChange={changeEmail}
           />
         </label>
+        <div className={classes.error}>
+          {errors?.email && <p>{errors?.email?.message}</p>}
+        </div>
         <label className={classes.new_password}>
           New password
           <input
-            value={password}
+            {...register("password", {
+              minLength: {
+                value: 6,
+                message: "Minimum 6 characters!",
+              },
+              maxLength: {
+                value: 40,
+                message: "Maximum 40 characters!",
+              },
+            })}
             className={classes.new_password_input}
             type="password"
             placeholder="New password"
-            onChange={changePassword}
           />
         </label>
+        <div className={classes.error}>
+          {errors?.password && <p>{errors?.password?.message}</p>}
+        </div>
         <label className={classes.avatar}>
           Avatar image (url)
           <input
-            value={avatar}
+           {...register("url", {
+            pattern: {
+              value: "",
+            message: "Not a valid URL"
+            },
+          })}
             className={classes.avatar_input}
             type="text"
             placeholder="Avatar image"
-            onChange={changeAvatar}
           />
         </label>
+        <div className={classes.error}>
+          {errors?.url && <p>{errors?.url?.message}</p>}
+        </div>
+        <input
+          className={classes.save_btn}
+          type="submit"
+          value="Save"
+          disabled={!isValid}
+        />
       </form>
-      <button className={classes.save_btn} onClick={editUser}>
-        Save
-      </button>
+
       <ToastContainer
         position="bottom-right"
         autoClose={5000}

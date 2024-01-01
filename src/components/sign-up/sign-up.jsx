@@ -5,7 +5,6 @@ import { postCreateUser } from "../../store/user-slice";
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 
 const SignUp = () => {
@@ -13,10 +12,13 @@ const SignUp = () => {
     register,
     formState: { errors, isValid },
     handleSubmit,
+    watch,
     reset,
   } = useForm({
     mode: "onChange",
   });
+
+  const password = watch("password", "");
 
   const dispatch = useDispatch();
 
@@ -93,17 +95,24 @@ const SignUp = () => {
             placeholder="Password"
           />
         </label>
-        <div className={classes.error_password}>
+        <div className={classes.error}>
           {errors?.password && <p>{errors?.password?.message}</p>}
         </div>
         <label className={classes.repeat_password}>
           Repeat Password
           <input
+            {...register("repeatPassword", {
+              validate: (value) =>
+                value === password || "Passwords do not match!",
+            })}
             className={classes.repeat_password_input}
             type="password"
             placeholder="Repeat Password"
           />
         </label>
+        <div className={classes.error}>
+          {errors?.repeatPassword && <p>{errors?.repeatPassword?.message}</p>}
+        </div>
         <label className={classes.checkbox}>
           <input
             {...register("agree", { required: "You must agree to the terms" })}
@@ -115,13 +124,13 @@ const SignUp = () => {
         <div className={classes.agree}>
           {errors?.agree && <p>{errors?.agree?.message}</p>}
         </div>
+        <input
+          type="submit"
+          value="Create"
+          disabled={!isValid}
+          className={classes.create_btn}
+        />
       </form>
-      <input
-        type="submit"
-        value="Create"
-        disabled={!isValid}
-        className={classes.create_btn}
-      />
 
       <ToastContainer
         position="bottom-right"

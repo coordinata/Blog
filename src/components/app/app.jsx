@@ -25,7 +25,7 @@ const App = () => {
   const login = useSelector((state) => state.user.loginUser);
 
   useEffect(() => {
-    dispatch(getArticle(currentPage));
+    dispatch(getArticle((currentPage - 1) * 5));
   }, [dispatch, currentPage]);
 
   const onChangePg = (page) => {
