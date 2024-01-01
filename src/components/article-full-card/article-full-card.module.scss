@@ -1,0 +1,80 @@
+.article_wrapper {
+  background-color: white;
+  width: 941px;
+  min-height: 870px;
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
+  margin-top: 26px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 15px;
+  padding-left: 19px;
+  margin-bottom: 64px;
+}
+
+.article {
+  display: grid;
+  grid-template-columns: 770px 90px 72px;
+  justify-content: space-between;
+
+  .title {
+    color: #1890ff;
+    font-size: 20px;
+    margin-right: 13px;
+    display: inline;
+  }
+
+  .user_name {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .date {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5);
+    line-height: 22px;
+  }
+
+  .button_like {
+    background-image: url("../../img/like.svg");
+    width: 16px;
+    height: 16px;
+    display: inline;
+    margin-right: 5px;
+  }
+
+  .num_like {
+    font-size: 12px;
+    line-height: 22px;
+    display: inline;
+  }
+
+  .avatar {
+    width: 46px;
+    height: 46px;
+    margin-right: 10px;
+  }
+
+  .description {
+    font-size: 12px;
+    line-height: 22px;
+    width: 682px;
+    margin-top: 8px;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  .tag {
+    font-size: 12px;
+    display: inline;
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 1px 6px;
+    margin-right: 8px;
+  }
+}
+
+.text_all {
+  margin-top: 25px;
+  margin-right: 42px;
+  font-size: 14px;
+  line-height: 22px;
+}
