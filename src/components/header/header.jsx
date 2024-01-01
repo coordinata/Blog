@@ -11,10 +11,6 @@ const Header = () => {
         </Link>
       </div>
       <div>
-        <Link to="/profile">
-          <button>ppp</button>
-        </Link>
-
         <Link to="/sign-in">
           <button className={classes.button_sign_in}>Sign In</button>
         </Link>

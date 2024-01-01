@@ -24,7 +24,7 @@ const HeaderAccount = () => {
           <img src={Avatar} alt="avatar" className={classes.avatar} />
         </Link>
 
-        <Link>
+        <Link to="/">
           <button className={classes.button_log_out} onClick={localStorage.removeItem("token")}>Log Out</button>
         </Link>
       </div>

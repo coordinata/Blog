@@ -93,7 +93,7 @@ const SignIn = () => {
       />
       <p className={classes.text}>
         Don’t have an account?{" "}
-        <Link to="/sign-up" className={classes.text_sign_up}>
+        <Link to="/" className={classes.text_sign_up}>
           Sign Up.
         </Link>
       </p>
