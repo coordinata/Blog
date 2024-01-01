@@ -35,6 +35,17 @@ const App = () => {
     dispatch(getArticle((currentPage - 1) * 5));
   }, [dispatch, currentPage]);
 
+  useEffect(() => {
+    const handleTokenChange = (e) => {
+      setToken(e.newValue);
+    };
+    window.addEventListener("storage", handleTokenChange);
+
+    return () => {
+      window.removeEventListener("storage", handleTokenChange);
+    };
+  }, []);
+  
   const onChangePg = (page) => {
     setCurrentPage(page);
   };
