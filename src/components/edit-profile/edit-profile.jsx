@@ -96,18 +96,19 @@ const EditProfile = () => {
         <label className={classes.avatar}>
           Avatar image (url)
           <input
-           {...register("url", {
-            pattern: {
-              value: "",
-            message: "Not a valid URL"
-            },
-          })}
+            {...register("url", {
+              pattern: {
+                value:
+                  /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
+                message: "Not a valid URL!",
+              },
+            })}
             className={classes.avatar_input}
             type="text"
             placeholder="Avatar image"
           />
         </label>
-        <div className={classes.error}>
+        <div className={classes.error_url}>
           {errors?.url && <p>{errors?.url?.message}</p>}
         </div>
         <input

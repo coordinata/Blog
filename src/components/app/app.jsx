@@ -22,7 +22,14 @@ const App = () => {
   const error = useSelector((state) => state.article.error);
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-  const login = localStorage.getItem("token");
+  const [token, setToken] = useState();
+
+  useEffect(() => {
+    const localToken = localStorage.getItem("token");
+    if (localToken) {
+      setToken(localToken);
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(getArticle((currentPage - 1) * 5));
@@ -39,8 +46,7 @@ const App = () => {
       <Alert type="error" className={classes.loading}>
         An error has occurred
       </Alert>
-    )
-
+    );
   } else {
     return (
       <div>
@@ -49,11 +55,11 @@ const App = () => {
             path="/"
             element={
               <>
-                {login ? <HeaderAccount /> : <Header />}
+                {token ? <HeaderAccount /> : <Header />}
                 <ArticleList />
                 <Pagination
                   className={classes.pagination}
-                  current={currentPage} 
+                  current={currentPage}
                   onChange={onChangePg}
                   pageSize={5}
                   total={300}
@@ -67,7 +73,7 @@ const App = () => {
             path="/article/:slug"
             element={
               <>
-                {login ? <HeaderAccount /> : <Header />}
+                {token ? <HeaderAccount /> : <Header />}
                 <ArticleFullCard />
               </>
             }
@@ -76,7 +82,7 @@ const App = () => {
             path="/sign-in"
             element={
               <>
-                {login ? <HeaderAccount /> : <Header />}
+                {token ? <HeaderAccount /> : <Header />}
                 <SignIn />
               </>
             }
@@ -85,7 +91,7 @@ const App = () => {
             path="/sign-up"
             element={
               <>
-                {login ? <HeaderAccount /> : <Header />}
+                {token ? <HeaderAccount /> : <Header />}
                 <SignUp />
               </>
             }
@@ -95,7 +101,7 @@ const App = () => {
             path="/profile"
             element={
               <>
-                {login ? <HeaderAccount /> : <Header />}
+                {token ? <HeaderAccount /> : <Header />}
                 <EditProfile />
               </>
             }
