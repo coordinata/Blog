@@ -25,7 +25,7 @@ const HeaderAccount = () => {
         </Link>
 
         <Link to="/">
-          <button className={classes.button_log_out} onClick={localStorage.removeItem("token")}>Log Out</button>
+          <button className={classes.button_log_out} /*onClick={localStorage.removeItem("token")}*/>Log Out</button>
         </Link>
       </div>
     </header>
