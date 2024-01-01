@@ -19,7 +19,7 @@ export const postCreateUser = createAsyncThunk(
         password: password,
       },
     });
-    localStorage.setItem("userName", res.data.user.username);
+    localStorage.setItem("userName",  JSON.stringify(res.data.user.username));
     localStorage.setItem("token", res.data.user.token);
     console.log(res.data);
     return res.data;
@@ -59,7 +59,8 @@ export const postLoginUser = createAsyncThunk(
         password: password,
       },
     });
-    localStorage.setItem("token", res.data.user.token);
+    localStorage.setItem("userName",  JSON.stringify(res.data.user.username));
+    localStorage.setItem("token", JSON.stringify(res.data.user.token));
     console.log(res.data);
     return res.data;
   }

@@ -71,13 +71,14 @@ const SignIn = () => {
             {errors?.password && <p>{errors?.password?.message}</p>}
           </div>
         </label>
-
-        <input
-          type="submit"
-          value="Login"
-          disabled={!isValid}
-          className={classes.login_btn}
-        />
+        <Link to="/">
+          <input
+            type="submit"
+            value="Login"
+            disabled={!isValid}
+            className={classes.login_btn}
+          />
+        </Link>
       </form>
       <ToastContainer
         position="bottom-right"
@@ -93,7 +94,7 @@ const SignIn = () => {
       />
       <p className={classes.text}>
         Don’t have an account?{" "}
-        <Link to="/" className={classes.text_sign_up}>
+        <Link to="/sign-up" className={classes.text_sign_up}>
           Sign Up.
         </Link>
       </p>

@@ -124,12 +124,14 @@ const SignUp = () => {
         <div className={classes.agree}>
           {errors?.agree && <p>{errors?.agree?.message}</p>}
         </div>
-        <input
-          type="submit"
-          value="Create"
-          disabled={!isValid}
-          className={classes.create_btn}
-        />
+        <Link to="/">
+          <input
+            type="submit"
+            value="Create"
+            disabled={!isValid}
+            className={classes.create_btn}
+          />
+        </Link>
       </form>
 
       <ToastContainer
@@ -146,7 +148,7 @@ const SignUp = () => {
       />
       <p className={classes.text}>
         Already have an account?{" "}
-        <Link to="/" className={classes.text_sign_in}>
+        <Link to="/sign-in" className={classes.text_sign_in}>
           Sign In.
         </Link>
       </p>

@@ -22,7 +22,7 @@ const App = () => {
   const error = useSelector((state) => state.article.error);
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-  const login = useSelector((state) => state.user.loginUser);
+  const login = localStorage.getItem("token");
 
   useEffect(() => {
     dispatch(getArticle((currentPage - 1) * 5));
@@ -48,7 +48,7 @@ const App = () => {
             path="/"
             element={
               <>
-                {login ? <HeaderAccount /> : <Header />}
+                {login !== null ? <HeaderAccount /> : <Header />}
                 <ArticleList />
                 <Pagination
                   className={classes.pagination}
