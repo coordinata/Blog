@@ -124,14 +124,14 @@ const SignUp = () => {
         <div className={classes.agree}>
           {errors?.agree && <p>{errors?.agree?.message}</p>}
         </div>
-        <Link to="/">
+        
           <input
             type="submit"
             value="Create"
             disabled={!isValid}
             className={classes.create_btn}
           />
-        </Link>
+        
       </form>
 
       <ToastContainer
