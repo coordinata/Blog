@@ -5,8 +5,6 @@ const initialState = {
   loginUser: false,
   loading: false,
   error: false,
-  name: "",
-  avatar: "",
 };
 
 export const postCreateUser = createAsyncThunk(
@@ -45,6 +43,7 @@ export const putUpdateUser = createAsyncThunk(
         },
       }
     );
+    localStorage.setItem("avatar", res.data.user.image);
     console.log(res.data);
     return res.data;
   }
@@ -61,6 +60,7 @@ export const postLoginUser = createAsyncThunk(
     });
     localStorage.setItem("userName", res.data.user.username);
     localStorage.setItem("token", res.data.user.token);
+    localStorage.setItem("avatar", res.data.user.image);
     console.log(res.data);
     return res.data;
   }
@@ -100,7 +100,6 @@ export const userSlice = createSlice({
     [postLoginUser.fulfilled]: (state, action) => {
       state.loading = false;
       state.loginUser = true;
-      state.avatar = action.payload.user.img
     },
     [postLoginUser.rejected]: (state, action) => {
       state.loading = false;
@@ -113,7 +112,6 @@ export const userSlice = createSlice({
     [putUpdateUser.fulfilled]: (state, action) => {
       state.loading = false;
       state.loginUser = true;
-      state.avatar = action.payload.user.img
     },
     [putUpdateUser.rejected]: (state, action) => {
       state.loading = false;

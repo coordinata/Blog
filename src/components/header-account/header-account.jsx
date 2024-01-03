@@ -6,8 +6,6 @@ import { useSelector } from "react-redux";
 
 const HeaderAccount = () => {
   const userName = localStorage.getItem("userName");
-  // const token = localStorage.getItem("token");
-  const avatar = useSelector((state) => state.user.avatar)
 
   return (
     <header className={classes.header}>
@@ -24,11 +22,21 @@ const HeaderAccount = () => {
         </Link>
         <Link to="/profile">
           <p className={classes.user_name}>{userName}</p>
-          <img src={avatar} alt="avatar" className={classes.avatar} />
+          <img
+            src={localStorage.getItem("avatar")}
+            alt="avatar"
+            className={classes.avatar}
+          />
         </Link>
 
         <Link to="/">
-          <button className={classes.button_log_out} /*onClick={localStorage.removeItem("token")}*/>Log Out</button>
+          <button
+            className={
+              classes.button_log_out
+            } /*onClick={localStorage.removeItem("token")}*/
+          >
+            Log Out
+          </button>
         </Link>
       </div>
     </header>
