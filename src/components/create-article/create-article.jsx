@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
+import { createArticle } from "../../store/article-slice";
 
 const CreateArticle = () => {
   const notify = () => toast.success("article created successfully!");
@@ -19,7 +20,7 @@ const CreateArticle = () => {
   });
 
   const onSubmit = (data) => {
-    dispatch(data);
+    dispatch(createArticle(data));
     reset();
     notify();
   };
