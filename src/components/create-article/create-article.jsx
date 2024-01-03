@@ -74,6 +74,15 @@ const CreateArticle = () => {
           </div>
         </label>
 
+        <label className={classes.tags}>
+          Tags
+          <div className={classes.tag_wrapper}>
+            <input className={classes.tag} type="text" placeholder="Tag"/>
+            <button className={classes.del_btn}>Delete</button>
+            <button className={classes.add_btn}>Add tag</button>
+          </div>
+        </label>
+
         <input
           type="submit"
           value="Send"
