@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 
 const EditArticle = () => {
-  const notify = () => toast.success("article created successfully!");
+  const notify = () => toast.success("article successfully edited!");
   const dispatch = useDispatch();
 
   const {
@@ -26,7 +26,7 @@ const EditArticle = () => {
 
   return (
     <div className={classes.wrapper}>
-      <h1 className={classes.title}>Create new article</h1>
+      <h1 className={classes.title}>Edit article</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <label className={classes.title_article}>
