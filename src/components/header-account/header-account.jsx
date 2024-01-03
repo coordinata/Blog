@@ -2,10 +2,15 @@ import React from "react";
 import classes from "./header-account.module.scss";
 import { Link } from "react-router-dom";
 import Avatar from "../../img/avatar.png";
-import { useSelector } from "react-redux";
 
 const HeaderAccount = () => {
   const userName = localStorage.getItem("userName");
+
+  const onClick = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("userName")
+    localStorage.removeItem("avatar")
+  }
 
   return (
     <header className={classes.header}>
@@ -33,7 +38,7 @@ const HeaderAccount = () => {
           <button
             className={
               classes.button_log_out
-            } /*onClick={localStorage.removeItem("token")}*/
+            } onClick={onClick}
           >
             Log Out
           </button>
