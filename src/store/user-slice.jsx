@@ -100,6 +100,7 @@ export const userSlice = createSlice({
     [postLoginUser.fulfilled]: (state, action) => {
       state.loading = false;
       state.loginUser = true;
+      state.avatar = action.payload.user.img
     },
     [postLoginUser.rejected]: (state, action) => {
       state.loading = false;
@@ -112,6 +113,7 @@ export const userSlice = createSlice({
     [putUpdateUser.fulfilled]: (state, action) => {
       state.loading = false;
       state.loginUser = true;
+      state.avatar = action.payload.user.img
     },
     [putUpdateUser.rejected]: (state, action) => {
       state.loading = false;

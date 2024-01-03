@@ -2,10 +2,12 @@ import React from "react";
 import classes from "./header-account.module.scss";
 import { Link } from "react-router-dom";
 import Avatar from "../../img/avatar.png";
+import { useSelector } from "react-redux";
 
 const HeaderAccount = () => {
   const userName = localStorage.getItem("userName");
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
+  const avatar = useSelector((state) => state.user.avatar)
 
   return (
     <header className={classes.header}>
@@ -22,7 +24,7 @@ const HeaderAccount = () => {
         </Link>
         <Link to="/profile">
           <p className={classes.user_name}>{userName}</p>
-          <img src={Avatar} alt="avatar" className={classes.avatar} />
+          <img src={avatar} alt="avatar" className={classes.avatar} />
         </Link>
 
         <Link to="/">
