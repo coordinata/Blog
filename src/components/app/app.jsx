@@ -17,6 +17,7 @@ import SignUp from "../sign-up/sign-up";
 import EditProfile from "../edit-profile/edit-profile";
 import HeaderAccount from "../header-account/header-account";
 import CreateArticle from "../create-article/create-article";
+import EditArticle from "../edit-article/edit-article";
 
 const App = () => {
   const loading = useSelector((state) => state.article.loading);
@@ -124,6 +125,15 @@ const App = () => {
               <>
                 <HeaderAccount />
                 <CreateArticle />
+              </>
+            }
+          />
+           <Route
+            path="/articles/:slug/edit"
+            element={
+              <>
+                <HeaderAccount />
+                <EditArticle />
               </>
             }
           />
