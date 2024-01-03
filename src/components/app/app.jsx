@@ -113,7 +113,7 @@ const App = () => {
             path="/profile"
             element={
               <>
-                {token ? <HeaderAccount /> : <Header />}
+                <HeaderAccount />
                 <EditProfile />
               </>
             }
@@ -122,7 +122,7 @@ const App = () => {
             path="/new-article"
             element={
               <>
-                {token ? <HeaderAccount /> : <Header />}
+                <HeaderAccount />
                 <CreateArticle />
               </>
             }
