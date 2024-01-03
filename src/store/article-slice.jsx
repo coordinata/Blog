@@ -19,20 +19,20 @@ export const getArticle = createAsyncThunk(
 
 export const createArticle = createAsyncThunk(
   "article/createArticle",
-  async ({title, description, body}) => {
+  async ({title, description, text, tags}) => {
     const res = await axios.post(
       "https://blog.kata.academy/api/articles",
       {
         article: {
           title: title,
           description: description,
-          body: body,
-          tags: ["tags"], //array
+          body: text,
+          tags: tags, //array
         },
       },
       {
         headers: {
-          Authorization: `Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OTJlNTEzOGM4MjhkMWIwMDM5M2E4MiIsInVzZXJuYW1lIjoicXVldWU5OTkiLCJleHAiOjE3MDk1MDA2MzIsImlhdCI6MTcwNDMxNjYzMn0.im3J6aWDtMxcEga7nifyfXhFfH5r9-5MpnDCaZ1rrE4`,
+          Authorization: `Token ${localStorage.getItem("token")}`,
         },
       }
     );

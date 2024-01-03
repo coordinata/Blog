@@ -5,6 +5,7 @@ import Avatar from "../../img/avatar.png";
 
 const HeaderAccount = () => {
   const userName = localStorage.getItem("userName");
+  const token = localStorage.getItem("token");
 
   return (
     <header className={classes.header}>
@@ -25,7 +26,7 @@ const HeaderAccount = () => {
         </Link>
 
         <Link to="/">
-          <button className={classes.button_log_out} onClick={localStorage.removeItem("token")}>Log Out</button>
+          <button className={classes.button_log_out} /*onClick={localStorage.removeItem("token")}*/>Log Out</button>
         </Link>
       </div>
     </header>
