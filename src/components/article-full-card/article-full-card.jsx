@@ -31,7 +31,7 @@ const ArticleAll = () => {
             <p className={classes.description}>{article.description}</p>
           </div>
           <div>
-            <p className={classes.user_name}>{article.author.user_name}</p>
+            <p className={classes.user_name}>{article.author.username}</p>
             <p className={classes.date}>{formatDate(article.createdAt)}</p>
           </div>
           <div>

@@ -52,6 +52,7 @@
     width: 46px;
     height: 46px;
     margin-right: 10px;
+    border-radius: 50%;
   }
 
   .description {
@@ -65,10 +66,11 @@
   .tag {
     font-size: 12px;
     display: inline;
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.50);
     border-radius: 2px;
     padding: 1px 6px;
     margin-right: 8px;
+    color: rgba(0, 0, 0, 0.50);
   }
 }
 

@@ -42,12 +42,12 @@ const ArticleCard = ({ article }) => {
         <button className={classes.button_like}></button>
         <p className={classes.num_like}>{article.favoritesCount}</p>
         <div>
-          {article.tagList &&
+          {/* {article.tagList &&
             article.tagList.slice(0, 5).map((tag, i) => (
               <p className={classes.tag} key={i}>
                 {truncateContent(tag, 15)}
               </p>
-            ))}
+            ))} */}
         </div>
 
         <p className={classes.description}>
@@ -56,7 +56,7 @@ const ArticleCard = ({ article }) => {
       </div>
       <div>
         <p className={classes.user_name}>
-          {truncateContent(article.author.username, 12)}
+          {truncateContent(article.author.username, 8)}
         </p>
         <p className={classes.date}>{formatDate(article.createdAt)}</p>
       </div>
