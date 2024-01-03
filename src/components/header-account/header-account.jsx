@@ -14,7 +14,7 @@ const HeaderAccount = () => {
         </Link>
       </div>
       <div>
-        <Link>
+        <Link to="/new-article">
           <button className={classes.button_create_article}>
             Create article
           </button>

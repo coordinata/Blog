@@ -16,6 +16,7 @@ import SignIn from "../sign-in/sign-in";
 import SignUp from "../sign-up/sign-up";
 import EditProfile from "../edit-profile/edit-profile";
 import HeaderAccount from "../header-account/header-account";
+import CreateArticle from "../create-article/create-article";
 
 const App = () => {
   const loading = useSelector((state) => state.article.loading);
@@ -45,7 +46,7 @@ const App = () => {
       window.removeEventListener("storage", handleTokenChange);
     };
   }, []);
-  
+
   const onChangePg = (page) => {
     setCurrentPage(page);
   };
@@ -114,6 +115,15 @@ const App = () => {
               <>
                 {token ? <HeaderAccount /> : <Header />}
                 <EditProfile />
+              </>
+            }
+          />
+          <Route
+            path="/new-article"
+            element={
+              <>
+                {token ? <HeaderAccount /> : <Header />}
+                <CreateArticle />
               </>
             }
           />
