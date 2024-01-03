@@ -7,10 +7,10 @@ const HeaderAccount = () => {
   const userName = localStorage.getItem("userName");
 
   const onClick = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("userName")
-    localStorage.removeItem("avatar")
-  }
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("avatar");
+  };
 
   return (
     <header className={classes.header}>
@@ -35,11 +35,7 @@ const HeaderAccount = () => {
         </Link>
 
         <Link to="/">
-          <button
-            className={
-              classes.button_log_out
-            } onClick={onClick}
-          >
+          <button className={classes.button_log_out} onClick={onClick}>
             Log Out
           </button>
         </Link>
