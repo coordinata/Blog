@@ -5,8 +5,29 @@ import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const EditProfile = () => {
+  const notify = () => {
+    toast.success("The information has been successfully updated!");
+  };
+
+  const notifyError = () => toast.error("This email or username is already taken!");
+
+  const dispatch = useDispatch();
+  const errorUpdate = useSelector((state) => state.user.errorUpdate);
+
+  useEffect(() => {
+    if (errorUpdate === null) {
+      return;
+    } else if (errorUpdate) {
+      notifyError();
+    } else {
+      notify();
+    }
+  }, [errorUpdate]);
+
   const {
     register,
     formState: { errors, isValid },
@@ -15,12 +36,6 @@ const EditProfile = () => {
   } = useForm({
     mode: "onChange",
   });
-
-  const dispatch = useDispatch();
-
-  const notify = () => {
-    toast.success("The information has been successfully updated!");
-  };
 
   const onSubmit = (data) => {
     dispatch(putUpdateUser(data));

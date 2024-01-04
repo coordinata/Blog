@@ -13,7 +13,7 @@ const SignIn = () => {
   const notify = () => {
     toast.success("You have successfully logged in to your account!");
   };
-  const notifyError = () => toast.error("There is no account with this email!");
+  const notifyError = () => toast.error("The username or password you entered is incorrect!");
 
   const dispatch = useDispatch();
   const errorlogin = useSelector((state) => state.user.errorlogin);

@@ -6,6 +6,7 @@ const initialState = {
   loading: false,
   error: false,
   errorCreate: null,
+  errorUpdate: null,
 };
 
 export const postCreateUser = createAsyncThunk(
@@ -71,15 +72,9 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setCreateUser: (state, action) => {
-  
-    },
-    setLoginUser: (state, action) => {
-    
-    },
-    setUpdateUser: (state, action) => {
-      
-    },
+    setCreateUser: (state, action) => {},
+    setLoginUser: (state, action) => {},
+    setUpdateUser: (state, action) => {},
   },
   extraReducers: {
     [postCreateUser.pending]: (state, action) => {
@@ -113,10 +108,12 @@ export const userSlice = createSlice({
     },
     [putUpdateUser.fulfilled]: (state, action) => {
       state.loading = false;
+      state.errorUpdate = false;
     },
     [putUpdateUser.rejected]: (state, action) => {
       state.loading = false;
       state.error = true;
+      state.errorUpdate = true;
     },
   },
 });
