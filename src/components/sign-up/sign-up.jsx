@@ -6,8 +6,28 @@ import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const SignUp = () => {
+  const notify = () => {
+    toast.success("You have successfully registered!");
+  };
+  const notifyError = () =>
+    toast.error("Username or email address is already taken!");
+  const dispatch = useDispatch();
+  const errorCreate = useSelector((state) => state.user.errorCreate);
+
+  useEffect(() => {
+    if (errorCreate === null) {
+      return
+    } else if (errorCreate) {
+      notifyError();
+    } else {
+      notify();
+    }
+  }, [errorCreate]);
+
   const {
     register,
     formState: { errors, isValid },
@@ -20,16 +40,9 @@ const SignUp = () => {
 
   const password = watch("password", "");
 
-  const dispatch = useDispatch();
-
-  const notify = () => {
-    toast.success("You have successfully registered!");
-  };
-
   const onSubmit = (data) => {
     dispatch(postCreateUser(data));
     reset();
-    notify();
   };
 
   return (
@@ -124,14 +137,13 @@ const SignUp = () => {
         <div className={classes.agree}>
           {errors?.agree && <p>{errors?.agree?.message}</p>}
         </div>
-        
-          <input
-            type="submit"
-            value="Create"
-            disabled={!isValid}
-            className={classes.create_btn}
-          />
-        
+
+        <input
+          type="submit"
+          value="Create"
+          disabled={!isValid}
+          className={classes.create_btn}
+        />
       </form>
 
       <ToastContainer

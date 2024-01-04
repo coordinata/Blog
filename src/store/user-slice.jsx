@@ -5,6 +5,7 @@ const initialState = {
   loginUser: false,
   loading: false,
   error: false,
+  errorCreate: null,
 };
 
 export const postCreateUser = createAsyncThunk(
@@ -88,10 +89,11 @@ export const userSlice = createSlice({
     [postCreateUser.fulfilled]: (state, action) => {
       state.loading = false;
       state.loginUser = true;
+      state.errorCreate = false;
     },
     [postCreateUser.rejected]: (state, action) => {
       state.loading = false;
-      state.error = true;
+      state.errorCreate = true;
     },
     [postLoginUser.pending]: (state, action) => {
       state.loading = true;
