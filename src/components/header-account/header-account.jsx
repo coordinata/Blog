@@ -29,7 +29,7 @@ const HeaderAccount = () => {
         <Link to="/profile">
           <p className={classes.user_name}>{userName}</p>
           <img
-            src={userAvatar ? userAvatar : Avatar}
+            src={userAvatar === undefined ? userAvatar : Avatar}
             alt="avatar"
             className={classes.avatar}
           />

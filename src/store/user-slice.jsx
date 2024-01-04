@@ -80,6 +80,7 @@ export const userSlice = createSlice({
     [postCreateUser.pending]: (state, action) => {
       state.loading = true;
       state.error = false;
+      state.errorCreate = null;
     },
     [postCreateUser.fulfilled]: (state, action) => {
       state.loading = false;
@@ -92,6 +93,7 @@ export const userSlice = createSlice({
     [postLoginUser.pending]: (state, action) => {
       state.loading = true;
       state.error = false;
+      state.errorlogin = null;
     },
     [postLoginUser.fulfilled]: (state, action) => {
       state.loading = false;
@@ -105,6 +107,7 @@ export const userSlice = createSlice({
     [putUpdateUser.pending]: (state, action) => {
       state.loading = true;
       state.error = false;
+      state.errorUpdate = null;
     },
     [putUpdateUser.fulfilled]: (state, action) => {
       state.loading = false;
