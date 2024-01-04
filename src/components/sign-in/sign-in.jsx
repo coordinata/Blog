@@ -1,16 +1,32 @@
 import React from "react";
 import classes from "./sign-in.module.scss";
 import { Link } from "react-router-dom";
-// import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postLoginUser } from "../../store/user-slice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const SignIn = () => {
-  const notify = () => toast.success("You have successfully logged!");
+  const notify = () => {
+    toast.success("You have successfully logged in to your account!");
+  };
+  const notifyError = () => toast.error("There is no account with this email!");
+
   const dispatch = useDispatch();
+  const errorlogin = useSelector((state) => state.user.errorlogin);
+
+  useEffect(() => {
+    if (errorlogin === null) {
+      return;
+    } else if (errorlogin) {
+      notifyError();
+    } else {
+      notify();
+    }
+  }, [errorlogin]);
 
   const {
     register,
@@ -24,7 +40,6 @@ const SignIn = () => {
   const onSubmit = (data) => {
     dispatch(postLoginUser(data));
     reset();
-    notify();
   };
 
   return (

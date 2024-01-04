@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  loginUser: false,
+  errorlogin: null,
   loading: false,
   error: false,
   errorCreate: null,
@@ -72,13 +72,13 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setCreateUser: (state, action) => {
-      state.loginUser = true;
+  
     },
     setLoginUser: (state, action) => {
-      state.loginUser = true;
+    
     },
     setUpdateUser: (state, action) => {
-      state.loginUser = true;
+      
     },
   },
   extraReducers: {
@@ -88,7 +88,6 @@ export const userSlice = createSlice({
     },
     [postCreateUser.fulfilled]: (state, action) => {
       state.loading = false;
-      state.loginUser = true;
       state.errorCreate = false;
     },
     [postCreateUser.rejected]: (state, action) => {
@@ -101,11 +100,12 @@ export const userSlice = createSlice({
     },
     [postLoginUser.fulfilled]: (state, action) => {
       state.loading = false;
-      state.loginUser = true;
+      state.errorlogin = false;
     },
     [postLoginUser.rejected]: (state, action) => {
       state.loading = false;
       state.error = true;
+      state.errorlogin = true;
     },
     [putUpdateUser.pending]: (state, action) => {
       state.loading = true;
@@ -113,7 +113,6 @@ export const userSlice = createSlice({
     },
     [putUpdateUser.fulfilled]: (state, action) => {
       state.loading = false;
-      state.loginUser = true;
     },
     [putUpdateUser.rejected]: (state, action) => {
       state.loading = false;
