@@ -26,6 +26,7 @@
   .user_name {
     font-size: 18px;
     line-height: 28px;
+    overflow-wrap: break-word;
   }
 
   .date {
@@ -46,6 +47,8 @@
     font-size: 12px;
     line-height: 22px;
     display: inline;
+    position: relative;
+    top: -3px;
   }
 
   .avatar {
