@@ -27,7 +27,7 @@ export const createArticle = createAsyncThunk(
           title: title,
           description: description,
           body: text,
-          tags: tags, //array
+          tagList: tags, //array
         },
       },
       {

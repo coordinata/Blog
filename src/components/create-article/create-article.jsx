@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 import { createArticle } from "../../store/article-slice";
 
+
 const CreateArticle = () => {
   const notify = () => toast.success("article created successfully!");
   const dispatch = useDispatch();
@@ -62,12 +63,12 @@ const CreateArticle = () => {
 
         <label className={classes.text}>
           Text
-          <input
+          <textarea
             {...register("text", {
               required: "This field is required!",
             })}
             className={classes.text_input}
-            type="text"
+            required
             placeholder="Text"
           />
           <div className={classes.error}>

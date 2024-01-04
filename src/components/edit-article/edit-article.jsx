@@ -46,7 +46,7 @@ const EditArticle = () => {
 
         <label className={classes.description}>
           Short description
-          <input
+          <textarea
             {...register("description", {
               required: "This field is required!",
             })}

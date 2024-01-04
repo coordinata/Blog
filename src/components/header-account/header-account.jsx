@@ -5,6 +5,7 @@ import Avatar from "../../img/avatar.png";
 
 const HeaderAccount = () => {
   const userName = localStorage.getItem("userName");
+  const userAvatar = localStorage.getItem("avatar");
 
   const onClick = () => {
     localStorage.removeItem("token");
@@ -28,7 +29,7 @@ const HeaderAccount = () => {
         <Link to="/profile">
           <p className={classes.user_name}>{userName}</p>
           <img
-            src={localStorage.getItem("avatar")}
+            src={userAvatar ? userAvatar : Avatar}
             alt="avatar"
             className={classes.avatar}
           />
