@@ -7,6 +7,21 @@ const initialState = {
   error: false,
 };
 
+export const postLike = createAsyncThunk("article/postLike", async (slug) => {
+  const res = await axios.post(
+    `https://blog.kata.academy/api/articles/${slug}/favorite`,
+    {},
+    {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+    }
+  );
+
+  console.log(res.data);
+  return res.data;
+});
+
 export const getArticle = createAsyncThunk(
   "article/getArticle",
   async (num = 0) => {
@@ -19,7 +34,7 @@ export const getArticle = createAsyncThunk(
 
 export const createArticle = createAsyncThunk(
   "article/createArticle",
-  async ({title, description, text, tags}) => {
+  async ({ title, description, text, tags }) => {
     const res = await axios.post(
       "https://blog.kata.academy/api/articles",
       {
@@ -50,6 +65,7 @@ export const articleSlice = createSlice({
       state.article = action.payload;
     },
     setCreateArticle: () => {},
+    setPostLike: () => {},
   },
   extraReducers: {
     [getArticle.pending]: (state, action) => {
@@ -75,8 +91,20 @@ export const articleSlice = createSlice({
       state.loading = false;
       state.error = true;
     },
+    [postLike.pending]: (state, action) => {
+      state.loading = true;
+      state.error = false;
+    },
+    [postLike.fulfilled]: (state, action) => {
+      state.loading = false;
+    },
+    [postLike.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = true;
+    },
   },
 });
 
-export const { setArticle } = articleSlice.actions;
+export const { setArticle, setCreateArticle, setPostLike } =
+  articleSlice.actions;
 export default articleSlice.reducer;

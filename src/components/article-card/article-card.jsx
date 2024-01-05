@@ -4,14 +4,19 @@ import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { getSlugData } from "../../store/slug-slice";
-
 import { useDispatch } from "react-redux";
+import { postLike } from "../../store/article-slice";
 
 const ArticleCard = ({ article }) => {
   const dispatch = useDispatch();
 
   const clickTitle = () => {
     dispatch(getSlugData(article.slug));
+    localStorage.setItem("slug", article.slug);
+  };
+
+  const clickLike = () => {
+    dispatch(postLike(article.slug));
   };
 
   useEffect(() => {
@@ -39,13 +44,13 @@ const ArticleCard = ({ article }) => {
             {truncateContent(article.title, 30)}
           </p>
         </Link>
-        <button className={classes.button_like}></button>
+        <button className={classes.button_like} onClick={clickLike}></button>
         <p className={classes.num_like}>{article.favoritesCount}</p>
         <div>
           {article.tagList &&
             article.tagList.slice(0, 5).map((tag, i) => (
               <p className={classes.tag} key={i}>
-               {tag}
+                {tag}
               </p>
             ))}
         </div>
