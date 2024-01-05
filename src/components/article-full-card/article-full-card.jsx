@@ -13,6 +13,13 @@ const ArticleAll = () => {
     return formattedDate;
   };
 
+  const truncateContent = (content, num) => {
+    if (content.length > num) {
+      return content.substring(0, num) + "...";
+    }
+    return content;
+  };
+
   return (
     <div>
       <li className={classes.article_wrapper}>
@@ -24,11 +31,11 @@ const ArticleAll = () => {
             <div>
               {article.tagList.map((tag, i) => (
                 <p className={classes.tag} key={i}>
-                  {tag}
+                  {truncateContent(tag, 100)}
                 </p>
               ))}
             </div>
-            <p className={classes.description}>{article.description}</p>
+            <p className={classes.description}>{truncateContent(article.description, 1000)}</p>
           </div>
           <div>
             <p className={classes.user_name}>{article.author.username}</p>
@@ -42,7 +49,7 @@ const ArticleAll = () => {
             />
           </div>
         </div>
-        <Markdown className={classes.text_all}>{article.body}</Markdown>
+        <Markdown className={classes.text_all}>{truncateContent(article.body, 1500)}</Markdown>
       </li>
     </div>
   );

@@ -56,9 +56,11 @@ const App = () => {
     return <Spin className={classes.spin}></Spin>;
   } else if (error) {
     return (
-      <Alert type="error" className={classes.loading}>
-        An error has occurred
-      </Alert>
+      <Alert
+        type="error"
+        description="  An error has occurred!"
+        className={classes.error}
+      ></Alert>
     );
   } else {
     return (
@@ -128,7 +130,7 @@ const App = () => {
               </>
             }
           />
-           <Route
+          <Route
             path="/articles/:slug/edit"
             element={
               <>

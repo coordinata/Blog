@@ -50,7 +50,7 @@ const ArticleCard = ({ article }) => {
           {article.tagList &&
             article.tagList.slice(0, 5).map((tag, i) => (
               <p className={classes.tag} key={i}>
-                {tag}
+                {truncateContent(tag, 10)}
               </p>
             ))}
         </div>
