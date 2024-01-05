@@ -44,7 +44,7 @@ const ArticleCard = ({ article }) => {
             {truncateContent(article.title, 30)}
           </p>
         </Link>
-        <button className={classes.button_like} onClick={clickLike}></button>
+        <button className={article.favorited ? classes.button_like_active : classes.button_like} onClick={clickLike}></button>
         <p className={classes.num_like}>{article.favoritesCount}</p>
         <div>
           {article.tagList &&
