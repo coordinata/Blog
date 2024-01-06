@@ -8,8 +8,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
+  const navigate = useNavigate()
   const notify = () => {
     toast.success("You have successfully logged in to your account!");
   };
@@ -25,8 +27,9 @@ const SignIn = () => {
       notifyError();
     } else {
       notify();
+      navigate('/')
     }
-  }, [errorlogin]);
+  }, [errorlogin, navigate]);
 
   const {
     register,

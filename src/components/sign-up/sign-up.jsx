@@ -8,8 +8,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const notify = () => {
     toast.success("You have successfully registered!");
   };
@@ -25,8 +27,9 @@ const SignUp = () => {
       notifyError();
     } else {
       notify();
+      navigate('/')
     }
-  }, [errorCreate]);
+  }, [errorCreate, navigate]);
 
   const {
     register,
