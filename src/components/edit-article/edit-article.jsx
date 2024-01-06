@@ -46,7 +46,7 @@ const EditArticle = () => {
 
         <label className={classes.description}>
           Short description
-          <textarea
+          <input
             {...register("description", {
               required: "This field is required!",
             })}
@@ -61,7 +61,7 @@ const EditArticle = () => {
 
         <label className={classes.text}>
           Text
-          <input
+          <textarea
             {...register("text", {
               required: "This field is required!",
             })}

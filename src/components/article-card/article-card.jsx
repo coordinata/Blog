@@ -10,6 +10,7 @@ import { deleteLike } from "../../store/article-slice";
 
 const ArticleCard = ({ article }) => {
   const dispatch = useDispatch();
+  const localToken = localStorage.getItem("token");
 
   const clickTitle = () => {
     dispatch(getSlugData(article.slug));
@@ -17,9 +18,11 @@ const ArticleCard = ({ article }) => {
   };
 
   const clickLike = () => {
-    article.favorited
-      ? dispatch(deleteLike(article.slug))
-      : dispatch(postLike(article.slug));
+    if (localToken) {
+      article.favorited
+        ? dispatch(deleteLike(article.slug))
+        : dispatch(postLike(article.slug));
+    }
   };
 
   useEffect(() => {

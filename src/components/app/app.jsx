@@ -57,7 +57,7 @@ const App = () => {
     return (
       <Alert
         type="error"
-        description="  An error has occurred!"
+        description="An error has occurred!"
         className={classes.error}
       ></Alert>
     );
