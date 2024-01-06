@@ -41,6 +41,14 @@
     height: 16px;
     display: inline;
     margin-right: 5px;
+    &_active {
+      background-image: url("../../img/like-active.svg");
+      background-repeat: no-repeat;
+      width: 16px;
+      height: 16px;
+      display: inline;
+      margin-right: 5px;
+    }
   }
 
   .num_like {
@@ -85,3 +93,4 @@
   line-height: 22px;
   overflow-wrap: break-word;
 }
+

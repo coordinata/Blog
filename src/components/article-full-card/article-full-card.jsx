@@ -3,9 +3,14 @@ import classes from "./article-full-card.module.scss";
 import { useSelector } from "react-redux";
 import { format } from "date-fns";
 import Markdown from "react-markdown";
+import { postLike } from "../../store/article-slice";
+import { deleteLike } from "../../store/article-slice";
+import { useDispatch } from "react-redux";
 
 const ArticleFullCard = () => {
   const article = useSelector((state) => state.slug.slugData);
+  const localToken = localStorage.getItem("token");
+  const dispatch = useDispatch();
 
   const formatDate = (dateString) => {
     if (!dateString) {
@@ -24,9 +29,16 @@ const ArticleFullCard = () => {
     }
   };
 
+  const clickLike = () => {
+    if (localToken) {
+      article.favorited
+        ? dispatch(deleteLike(article.slug))
+        : dispatch(postLike(article.slug));
+    }
+  };
+
   const truncateContent = (content, num) => {
     if (content && content.length > num) {
-      // Проверка на наличие данных
       return content.substring(0, num) + "...";
     }
     return content;
@@ -38,15 +50,23 @@ const ArticleFullCard = () => {
         <div className={classes.article}>
           <div>
             <p className={classes.title}>{article.title}</p>
-            <button className={classes.button_like}></button>
+            <button
+              className={
+                article.favorited
+                  ? classes.button_like_active
+                  : classes.button_like
+              }
+              onClick={clickLike}
+            ></button>
             <p className={classes.num_like}>{article.favoritesCount}</p>
             <div>
-            {article.tagList && article.tagList.map((tag, i) => ( // Добавлена проверка на наличие tagList
-              <p className={classes.tag} key={i}>
-                {truncateContent(tag, 100)}
-              </p>
-            ))}
-          </div>
+              {article.tagList &&
+                article.tagList.map((tag, i) => (
+                  <p className={classes.tag} key={i}>
+                    {truncateContent(tag, 100)}
+                  </p>
+                ))}
+            </div>
             <p className={classes.description}>
               {truncateContent(article.description, 1000)}
             </p>
