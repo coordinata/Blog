@@ -30,7 +30,7 @@ const ArticleCard = ({ article }) => {
   };
 
   const truncateContent = (content, num) => {
-    if (content.length > num) {
+    if (content && content.length > num) { // Проверка на наличие данных
       return content.substring(0, num) + "...";
     }
     return content;

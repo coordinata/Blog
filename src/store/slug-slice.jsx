@@ -8,15 +8,14 @@ const initialState = {
 };
 
 export const getSlugData = createAsyncThunk(
-    "slugData/getSlugData",
-    async (slug) => {
-      const res = await axios.get(
-        `https://blog.kata.academy/api/articles/${slug}`
-      );
-      return res.data.article;
+  "slugData/getSlugData",
+  async (slug) => {
+    const res = await axios.get(
+      `https://blog.kata.academy/api/articles/${slug}`
+    );
+    return res.data.article;
   }
 );
-
 
 export const slugSlice = createSlice({
   name: "slugData",
