@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { getSlugData } from "../../store/slug-slice";
 import { useDispatch } from "react-redux";
 import { postLike } from "../../store/article-slice";
+import { deleteLike } from "../../store/article-slice";
 
 const ArticleCard = ({ article }) => {
   const dispatch = useDispatch();
@@ -16,7 +17,9 @@ const ArticleCard = ({ article }) => {
   };
 
   const clickLike = () => {
-    dispatch(postLike(article.slug));
+    article.favorited
+      ? dispatch(deleteLike(article.slug))
+      : dispatch(postLike(article.slug));
   };
 
   useEffect(() => {
@@ -30,7 +33,7 @@ const ArticleCard = ({ article }) => {
   };
 
   const truncateContent = (content, num) => {
-    if (content && content.length > num) { // Проверка на наличие данных
+    if (content && content.length > num) {
       return content.substring(0, num) + "...";
     }
     return content;
@@ -44,7 +47,12 @@ const ArticleCard = ({ article }) => {
             {truncateContent(article.title, 30)}
           </p>
         </Link>
-        <button className={article.favorited ? classes.button_like_active : classes.button_like} onClick={clickLike}></button>
+        <button
+          className={
+            article.favorited ? classes.button_like_active : classes.button_like
+          }
+          onClick={clickLike}
+        ></button>
         <p className={classes.num_like}>{article.favoritesCount}</p>
         <div>
           {article.tagList &&
