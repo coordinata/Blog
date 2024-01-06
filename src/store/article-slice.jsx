@@ -39,7 +39,7 @@ export const getArticle = createAsyncThunk(
 
 export const createArticle = createAsyncThunk(
   "article/createArticle",
-  async ({ title, description, text, tags }) => {
+  async ({ title, description, text, tagsArr }) => {
     const res = await axios.post(
       "https://blog.kata.academy/api/articles",
       {
@@ -47,7 +47,7 @@ export const createArticle = createAsyncThunk(
           title: title,
           description: description,
           body: text,
-          tagList: tags, //array
+          tagList: tagsArr, //array
         },
       },
       {

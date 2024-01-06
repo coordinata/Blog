@@ -16,11 +16,11 @@ const CreateArticle = () => {
   const tagInputRef = useRef(null);
 
   const addTag = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (tagInputRef.current.value.trim() !== "") {
       setTagsArr([...tagsArr, tagInputRef.current.value]);
     }
-    tagInputRef.current.value = ""; // Очищаем значение инпута после добавления в массив
+    tagInputRef.current.value = "";
   };
 
   const removeTag = (index) => {
@@ -29,13 +29,9 @@ const CreateArticle = () => {
   };
 
   const onSubmit = (data) => {
-    dispatch(createArticle(data));
+    dispatch(createArticle({...data, tagsArr: tagsArr}))
     reset();
     notify();
-  };
-
-  const qqq = () => {
-    console.log(tagsArr);
   };
 
   const {
@@ -52,7 +48,7 @@ const CreateArticle = () => {
       <h1 className={classes.title}>Create new article</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label className={classes.title_article} onClick={qqq()}>
+        <label className={classes.title_article}>
           Title
           <input
             {...register("title", {
