@@ -29,7 +29,7 @@ const App = () => {
     if (theToken) {
       dispatch(getCurrentUser(theToken));
     }
-  }, []);
+  }, [dispatch]);//no dispatch
 
   useEffect(() => {
     dispatch(getArticle((currentPage - 1) * 5));
@@ -64,7 +64,7 @@ const App = () => {
                   current={currentPage}
                   onChange={onChangePg}
                   pageSize={5}
-                  total={300}
+                  total={400}
                   hideOnSinglePage={true}
                   showSizeChanger={false}
                 />

@@ -37,30 +37,6 @@
     margin-left: 20px;
   }
 
-  .button_like {
-    background-image: url("../../img/like.svg");
-    width: 16px;
-    height: 16px;
-    display: inline;
-    margin-right: 5px;
-    &_active {
-      background-image: url("../../img/like-active.svg");
-      background-repeat: no-repeat;
-      width: 16px;
-      height: 16px;
-      display: inline;
-      margin-right: 5px;
-    }
-  }
-
-  .num_like {
-    font-size: 12px;
-    line-height: 22px;
-    display: inline;
-    position: relative;
-    top: -3px;
-  }
-
   .avatar {
     width: 46px;
     height: 46px;

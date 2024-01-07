@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { deleteLike, postLike } from "../../store/article-slice";
+import classes from "./favorite-button.module.scss";
 
 const FavotiteButton = ({ favotite, count, slug }) => {
   console.log(favotite);
@@ -16,12 +17,10 @@ const FavotiteButton = ({ favotite, count, slug }) => {
     <>
       <button
         disabled={!auth}
-        style={{ color: favotite ? "red" : "black" }}
+        className={favotite ? classes.button_like_active : classes.button_like}
         onClick={onFavorited}
-      >
-        Like
-      </button>
-      <p>{count}</p>
+      ></button>
+      <p className={classes.num_like}>{count}</p>
     </>
   );
 };
