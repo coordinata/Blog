@@ -7,16 +7,23 @@ import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
+  const dispatch = useDispatch();
+  const { errorUpdate, auth } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!auth) {
+      navigate("/sign-in");
+    }
+  }, [auth, navigate]);
   const notify = () => {
     toast.success("The information has been successfully updated!");
   };
 
-  const notifyError = () => toast.error("This email or username is already taken!");
-
-  const dispatch = useDispatch();
-  const errorUpdate = useSelector((state) => state.user.errorUpdate);
+  const notifyError = () =>
+    toast.error("This email or username is already taken!");
 
   useEffect(() => {
     if (errorUpdate === null) {

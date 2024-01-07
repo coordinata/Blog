@@ -13,7 +13,7 @@ export const postLike = createAsyncThunk("article/postLike", async (slug) => {
     {},
     {
       headers: {
-        Authorization: `Token ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     }
   );
@@ -22,20 +22,23 @@ export const postLike = createAsyncThunk("article/postLike", async (slug) => {
   return res.data;
 });
 
-export const deleteLike = createAsyncThunk("article/deleteLike", async (slug) => {
-  const res = await axios.delete(
-    `https://blog.kata.academy/api/articles/${slug}/favorite`,
-    
-    {
-      headers: {
-        Authorization: `Token ${localStorage.getItem("token")}`,
-      },
-    }
-  );
+export const deleteLike = createAsyncThunk(
+  "article/deleteLike",
+  async (slug) => {
+    const res = await axios.delete(
+      `https://blog.kata.academy/api/articles/${slug}/favorite`,
 
-  console.log(res.data);
-  return res.data;
-});
+      {
+        headers: {
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    console.log(res.data);
+    return res.data;
+  }
+);
 
 export const getArticle = createAsyncThunk(
   "article/getArticle",
@@ -62,7 +65,7 @@ export const createArticle = createAsyncThunk(
           title: title,
           description: description,
           body: text,
-          tagList: tagsArr, 
+          tagList: tagsArr,
         },
       },
       {
@@ -78,8 +81,7 @@ export const createArticle = createAsyncThunk(
 export const articleSlice = createSlice({
   name: "article",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: {
     [getArticle.pending]: (state, action) => {
       state.loading = true;
@@ -104,24 +106,36 @@ export const articleSlice = createSlice({
       state.loading = false;
       state.error = true;
     },
-    [postLike.pending]: (state, action) => {
-      state.loading = true;
-      state.error = false;
-    },
+    [postLike.pending]: (state, action) => {},
     [postLike.fulfilled]: (state, action) => {
+      state.article = state.article.map((el) => {
+        if (el.slug === action.payload.article.slug) {
+          return {
+            ...el,
+            favorited: action.payload.article.favorited,
+            favoritesCount: action.payload.article.favoritesCount,
+          };
+        }
+        return el;
+      });
       state.loading = false;
     },
     [postLike.rejected]: (state, action) => {
       state.loading = false;
       state.error = true;
     },
-    [deleteLike.pending]: (state, action) => {
-      state.loading = true;
-      state.error = false;
-    },
+    [deleteLike.pending]: (state, action) => {},
     [deleteLike.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.error = false;
+      state.article = state.article.map((el) => {
+        if (el.slug === action.payload.article.slug) {
+          return {
+            ...el,
+            favorited: action.payload.article.favorited,
+            favoritesCount: action.payload.article.favoritesCount,
+          };
+        }
+        return el;
+      });
     },
     [deleteLike.rejected]: (state, action) => {
       state.loading = false;

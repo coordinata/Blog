@@ -13,7 +13,7 @@ const ArticleList = () => {
       <ul className={classes.tickets_list}>
         {articles.map((article) => (
           <li key={uuidv4()}>
-            <ArticleCard article={article}/>
+            <ArticleCard article={article} />
           </li>
         ))}
       </ul>

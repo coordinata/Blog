@@ -11,25 +11,26 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const notify = () => {
     toast.success("You have successfully logged in to your account!");
   };
-  const notifyError = () => toast.error("The username or password you entered is incorrect!");
+  const notifyError = () =>
+    toast.error("The username or password you entered is incorrect!");
 
   const dispatch = useDispatch();
-  const errorlogin = useSelector((state) => state.user.errorlogin);
+  const { errorlogin, auth } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (errorlogin === null) {
       return;
     } else if (errorlogin) {
       notifyError();
-    } else {
+    } else if (auth) {
       notify();
-      navigate('/')
+      navigate("/");
     }
-  }, [errorlogin, navigate]);
+  }, [errorlogin, navigate, auth]);
 
   const {
     register,

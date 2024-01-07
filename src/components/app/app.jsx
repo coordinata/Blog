@@ -14,38 +14,26 @@ import ArticleFullCard from "../article-full-card/article-full-card";
 import SignIn from "../sign-in/sign-in";
 import SignUp from "../sign-up/sign-up";
 import EditProfile from "../edit-profile/edit-profile";
-import HeaderAccount from "../header-account/header-account";
 import CreateArticle from "../create-article/create-article";
 import EditArticle from "../edit-article/edit-article";
+import { getCurrentUser } from "../../store/user-slice";
 
 const App = () => {
   const loading = useSelector((state) => state.article.loading);
   const error = useSelector((state) => state.article.error);
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-  const [token, setToken] = useState();
 
   useEffect(() => {
-    const localToken = localStorage.getItem("token");
-    if (localToken) {
-      setToken(localToken);
+    const theToken = localStorage.getItem("token");
+    if (theToken) {
+      dispatch(getCurrentUser(theToken));
     }
   }, []);
 
   useEffect(() => {
     dispatch(getArticle((currentPage - 1) * 5));
   }, [dispatch, currentPage]);
-
-  useEffect(() => {
-    const handleTokenChange = (e) => {
-      setToken(e.newValue);
-    };
-    window.addEventListener("storage", handleTokenChange);
-
-    return () => {
-      window.removeEventListener("storage", handleTokenChange);
-    };
-  }, []);
 
   const onChangePg = (page) => {
     setCurrentPage(page);
@@ -69,7 +57,7 @@ const App = () => {
             path="/"
             element={
               <>
-                {token ? <HeaderAccount /> : <Header />}
+                <Header />
                 <ArticleList />
                 <Pagination
                   className={classes.pagination}
@@ -87,7 +75,7 @@ const App = () => {
             path="/article/:slug"
             element={
               <>
-                {token ? <HeaderAccount /> : <Header />}
+                <Header />
                 <ArticleFullCard />
               </>
             }
@@ -96,7 +84,7 @@ const App = () => {
             path="/sign-in"
             element={
               <>
-                {token ? <HeaderAccount /> : <Header />}
+                <Header />
                 <SignIn />
               </>
             }
@@ -105,7 +93,7 @@ const App = () => {
             path="/sign-up"
             element={
               <>
-                {token ? <HeaderAccount /> : <Header />}
+                <Header />
                 <SignUp />
               </>
             }
@@ -115,7 +103,7 @@ const App = () => {
             path="/profile"
             element={
               <>
-                <HeaderAccount />
+                <Header />
                 <EditProfile />
               </>
             }
@@ -124,7 +112,7 @@ const App = () => {
             path="/new-article"
             element={
               <>
-                <HeaderAccount />
+                <Header />
                 <CreateArticle />
               </>
             }
@@ -133,7 +121,7 @@ const App = () => {
             path="/articles/:slug/edit"
             element={
               <>
-                <HeaderAccount />
+                <Header />
                 <EditArticle />
               </>
             }

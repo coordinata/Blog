@@ -2,15 +2,15 @@ import React from "react";
 import classes from "./header-account.module.scss";
 import { Link } from "react-router-dom";
 import Avatar from "../../img/avatar.png";
+import { useDispatch, useSelector } from "react-redux";
+import { doLogOut } from "../../store/user-slice";
 
 const HeaderAccount = () => {
-  const userName = localStorage.getItem("userName");
-  const userAvatar = localStorage.getItem("avatar");
+  const { username, image } = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
 
-  const onClick = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("avatar");
+  const onLogOut = () => {
+    dispatch(doLogOut());
   };
 
   return (
@@ -27,16 +27,12 @@ const HeaderAccount = () => {
           </button>
         </Link>
         <Link to="/profile">
-          <p className={classes.user_name}>{userName}</p>
-          <img
-            src={userAvatar === undefined ? Avatar : userAvatar}
-            alt="avatar"
-            className={classes.avatar}
-          />
+          <p className={classes.user_name}>{username}</p>
+          <img src={image || Avatar} alt="avatar" className={classes.avatar} />
         </Link>
 
         <Link to="/">
-          <button className={classes.button_log_out} onClick={onClick}>
+          <button className={classes.button_log_out} onClick={onLogOut}>
             Log Out
           </button>
         </Link>

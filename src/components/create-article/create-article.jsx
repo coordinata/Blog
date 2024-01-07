@@ -29,7 +29,7 @@ const CreateArticle = () => {
   };
 
   const onSubmit = (data) => {
-    dispatch(createArticle({...data, tagsArr: tagsArr}))
+    dispatch(createArticle({ ...data, tagsArr: tagsArr }));
     reset();
     notify();
   };

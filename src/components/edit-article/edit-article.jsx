@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 
 const EditArticle = () => {
+  // const {user:{username}}=useSelector(state=>state.user)
   const notify = () => toast.success("article successfully edited!");
   const dispatch = useDispatch();
 

@@ -5,27 +5,13 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { getSlugData } from "../../store/slug-slice";
 import { useDispatch } from "react-redux";
-import { postLike } from "../../store/article-slice";
-import { deleteLike } from "../../store/article-slice";
+import FavotiteButton from "../favorite-button/favorite-button";
 
 const ArticleCard = ({ article }) => {
   const dispatch = useDispatch();
-  const localToken = localStorage.getItem("token");
-
-  const clickTitle = () => {
-    dispatch(getSlugData(article.slug));
-    localStorage.setItem("slug", article.slug);
-  };
-
-  const clickLike = () => {
-    if (localToken) {
-      article.favorited
-        ? dispatch(deleteLike(article.slug))
-        : dispatch(postLike(article.slug));
-    }
-  };
 
   useEffect(() => {
+    window.scroll(0, 0);
     dispatch(getSlugData(article.slug));
   }, [article.slug, dispatch]);
 
@@ -46,17 +32,13 @@ const ArticleCard = ({ article }) => {
     <div className={classes.article}>
       <div>
         <Link to={`/article/${article.slug}`}>
-          <p className={classes.title} onClick={clickTitle}>
-            {truncateContent(article.title, 30)}
-          </p>
+          <p className={classes.title}>{truncateContent(article.title, 30)}</p>
         </Link>
-        <button
-          className={
-            article.favorited ? classes.button_like_active : classes.button_like
-          }
-          onClick={clickLike}
-        ></button>
-        <p className={classes.num_like}>{article.favoritesCount}</p>
+        <FavotiteButton
+          favotite={article.favorited}
+          count={article.favoritesCount}
+          slug={article.slug}
+        />
         <div>
           {article.tagList &&
             article.tagList.slice(0, 5).map((tag, i) => (

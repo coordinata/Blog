@@ -90,11 +90,7 @@ const ArticleFullCardUser = () => {
               </Popconfirm>
               <button className={classes.button_edit}>Edit</button>
             </div>
-            
           </div>
-          
-            
-          
         </div>
         <Markdown className={classes.text_all}>{article.body}</Markdown>
       </li>

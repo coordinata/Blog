@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "./article-full-card.module.scss";
 import { useSelector } from "react-redux";
 import { format } from "date-fns";
 import Markdown from "react-markdown";
-import { postLike } from "../../store/article-slice";
-import { deleteLike } from "../../store/article-slice";
 import { useDispatch } from "react-redux";
+import ArticleFullCardUser from "../article-full-card-user/article-full-card-user";
+import FavotiteButton from "../favorite-button/favorite-button";
+import { useParams } from "react-router-dom";
+import { getSlugData } from "../../store/slug-slice";
 
-const ArticleFullCard = () => {
+const ArticleFullCard = (slug) => {
+  const params = useParams();
   const article = useSelector((state) => state.slug.slugData);
-  const localToken = localStorage.getItem("token");
   const dispatch = useDispatch();
+  const {
+    user: { username },
+  } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    dispatch(getSlugData(params.slug));
+  }, [params, dispatch]);
 
   const formatDate = (dateString) => {
     if (!dateString) {
@@ -29,14 +39,6 @@ const ArticleFullCard = () => {
     }
   };
 
-  const clickLike = () => {
-    if (localToken) {
-      article.favorited
-        ? dispatch(deleteLike(article.slug))
-        : dispatch(postLike(article.slug));
-    }
-  };
-
   const truncateContent = (content, num) => {
     if (content && content.length > num) {
       return content.substring(0, num) + "...";
@@ -45,47 +47,49 @@ const ArticleFullCard = () => {
   };
 
   return article ? (
-    <div>
-      <li className={classes.article_wrapper}>
-        <div className={classes.article}>
-          <div>
-            <p className={classes.title}>{article.title}</p>
-            <button
-              className={
-                article.favorited
-                  ? classes.button_like_active
-                  : classes.button_like
-              }
-              onClick={clickLike}
-            ></button>
-            <p className={classes.num_like}>{article.favoritesCount}</p>
-            <div>
-              {article.tagList &&
-                article.tagList.map((tag, i) => (
-                  <p className={classes.tag} key={i}>
-                    {truncateContent(tag, 100)}
-                  </p>
-                ))}
+    <>
+      {username === article.author.username ? (
+        <ArticleFullCardUser />
+      ) : (
+        <div>
+          <li className={classes.article_wrapper}>
+            <div className={classes.article}>
+              <div>
+                <p className={classes.title}>{article.title}</p>
+                <FavotiteButton
+                  favotite={article.favorited}
+                  count={article.favoritesCount}
+                  slug={article.slug}
+                />
+                <div>
+                  {article.tagList &&
+                    article.tagList.map((tag, i) => (
+                      <p className={classes.tag} key={i}>
+                        {truncateContent(tag, 100)}
+                      </p>
+                    ))}
+                </div>
+                <p className={classes.description}>
+                  {truncateContent(article.description, 1000)}
+                </p>
+              </div>
+              <div>
+                <p className={classes.user_name}>{article.author?.username}</p>
+                <p className={classes.date}>{formatDate(article.createdAt)}</p>
+              </div>
+              <div>
+                <img
+                  className={classes.avatar}
+                  src={article.author?.image}
+                  alt="avatar"
+                />
+              </div>
             </div>
-            <p className={classes.description}>
-              {truncateContent(article.description, 1000)}
-            </p>
-          </div>
-          <div>
-            <p className={classes.user_name}>{article.author?.username}</p>
-            <p className={classes.date}>{formatDate(article.createdAt)}</p>
-          </div>
-          <div>
-            <img
-              className={classes.avatar}
-              src={article.author?.image}
-              alt="avatar"
-            />
-          </div>
+            <Markdown className={classes.text_all}>{article.body}</Markdown>
+          </li>
         </div>
-        <Markdown className={classes.text_all}>{article.body}</Markdown>
-      </li>
-    </div>
+      )}
+    </>
   ) : null;
 };
 
