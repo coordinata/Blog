@@ -83,9 +83,7 @@ const ArticleFullCard = () => {
             />
           </div>
         </div>
-        <Markdown className={classes.text_all}>
-          {truncateContent(article.body, 1500)}
-        </Markdown>
+        <Markdown className={classes.text_all}>{article.body}</Markdown>
       </li>
     </div>
   ) : null;
