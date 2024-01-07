@@ -18,7 +18,6 @@ export const postLike = createAsyncThunk("article/postLike", async (slug) => {
     }
   );
 
-  console.log(res.data);
   return res.data;
 });
 
@@ -35,7 +34,6 @@ export const deleteLike = createAsyncThunk(
       }
     );
 
-    console.log(res.data);
     return res.data;
   }
 );
