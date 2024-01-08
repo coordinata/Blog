@@ -29,7 +29,7 @@ const App = () => {
     if (token) {
       dispatch(getCurrentUser(token));
     }
-  }, [dispatch]);//no dispatch
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getArticle((currentPage - 1) * 5));

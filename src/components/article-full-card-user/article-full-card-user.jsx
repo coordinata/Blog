@@ -8,6 +8,7 @@ import { deleteLike } from "../../store/article-slice";
 import { useDispatch } from "react-redux";
 import { Popconfirm } from "antd";
 import { deleteArticle } from "../../store/article-slice";
+import { Link } from "react-router-dom";
 
 const ArticleFullCardUser = () => {
   const article = useSelector((state) => state.slug.slugData);
@@ -92,11 +93,11 @@ const ArticleFullCardUser = () => {
                 description="Are you sure to delete this article?"
                 onConfirm={onConfirmEdit}
               >
-                <button className={classes.button_del}>
-                  Delete
-                </button>
+                <button className={classes.button_del}>Delete</button>
               </Popconfirm>
-              <button className={classes.button_edit}>Edit</button>
+              <Link to={`/articles/${article.slug}/edit`}>
+                <button className={classes.button_edit}>Edit</button>
+              </Link>
             </div>
           </div>
         </div>
