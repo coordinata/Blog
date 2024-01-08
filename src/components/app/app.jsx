@@ -25,9 +25,9 @@ const App = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    const theToken = localStorage.getItem("token");
-    if (theToken) {
-      dispatch(getCurrentUser(theToken));
+    const token = localStorage.getItem("token");
+    if (token) {
+      dispatch(getCurrentUser(token));
     }
   }, [dispatch]);//no dispatch
 

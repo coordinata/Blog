@@ -7,6 +7,7 @@ import { postLike } from "../../store/article-slice";
 import { deleteLike } from "../../store/article-slice";
 import { useDispatch } from "react-redux";
 import { Popconfirm } from "antd";
+import { deleteArticle } from "../../store/article-slice";
 
 const ArticleFullCardUser = () => {
   const article = useSelector((state) => state.slug.slugData);
@@ -43,6 +44,10 @@ const ArticleFullCardUser = () => {
       return content.substring(0, num) + "...";
     }
     return content;
+  };
+
+  const onConfirmEdit = () => {
+    dispatch(deleteArticle(article.slug));
   };
 
   return article ? (
@@ -85,8 +90,11 @@ const ArticleFullCardUser = () => {
                 okText="Yes"
                 cancelText="No"
                 description="Are you sure to delete this article?"
+                onConfirm={onConfirmEdit}
               >
-                <button className={classes.button_del}>Delete</button>
+                <button className={classes.button_del}>
+                  Delete
+                </button>
               </Popconfirm>
               <button className={classes.button_edit}>Edit</button>
             </div>

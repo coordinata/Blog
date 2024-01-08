@@ -7,6 +7,22 @@ const initialState = {
   error: false,
 };
 
+export const deleteArticle = createAsyncThunk(
+  "article/deleteArticle",
+  async (slug) => {
+    const res = await axios.delete(
+      `https://blog.kata.academy/api/articles/${slug}`,
+      {
+        headers: {
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    console.log(res.data);
+    return res.data;
+  }
+);
+
 export const postLike = createAsyncThunk("article/postLike", async (slug) => {
   const res = await axios.post(
     `https://blog.kata.academy/api/articles/${slug}/favorite`,
@@ -99,8 +115,7 @@ export const articleSlice = createSlice({
     },
     [createArticle.fulfilled]: (state, action) => {
       state.loading = false;
-      state.article.unshift(action.payload.article)
-   
+      state.article.unshift(action.payload.article);
     },
     [createArticle.rejected]: (state, action) => {
       state.loading = false;
@@ -138,6 +153,17 @@ export const articleSlice = createSlice({
       });
     },
     [deleteLike.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = true;
+    },
+    [deleteArticle.pending]: (state, action) => {
+      state.loading = true;
+      state.error = false;
+    },
+    [deleteArticle.fulfilled]: (state, action) => {
+      state.loading = false;
+    },
+    [deleteArticle.rejected]: (state, action) => {
       state.loading = false;
       state.error = true;
     },
