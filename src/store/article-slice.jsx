@@ -7,6 +7,29 @@ const initialState = {
   error: false,
 };
 
+export const editArticle = createAsyncThunk(
+  "article/editArticle",
+  async (slug, { title, description, text, tagsArr }) => {
+    const res = await axios.put(
+      `https://blog.kata.academy/api/articles/${slug}`,
+      {
+        article: {
+          title: title,
+          description: description,
+          body: text,
+          tagList: tagsArr,
+        },
+      },
+      {
+        headers: {
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
 export const deleteArticle = createAsyncThunk(
   "article/deleteArticle",
   async (slug) => {

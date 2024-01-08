@@ -4,10 +4,28 @@ import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
+import { editArticle } from "../../store/article-slice";
+import { useState } from "react";
+import { useRef } from "react";
 
 const EditArticle = () => {
-  const notify = () => toast.success("article successfully edited!");
+  const [tagsArr, setTagsArr] = useState([]);
+  const notify = () => toast.success("Article successfully edited!");
   const dispatch = useDispatch();
+  const tagInputRef = useRef(null);
+
+  const addTag = (e) => {
+    e.preventDefault();
+    if (tagInputRef.current.value.trim() !== "") {
+      setTagsArr([...tagsArr, tagInputRef.current.value]);
+    }
+    tagInputRef.current.value = "";
+  };
+
+  const removeTag = (index) => {
+    const updatedTagsArr = tagsArr.filter((_, i) => i !== index);
+    setTagsArr(updatedTagsArr);
+  };
 
   const {
     register,
@@ -19,7 +37,7 @@ const EditArticle = () => {
   });
 
   const onSubmit = (data) => {
-    dispatch(data);
+    dispatch(editArticle({ ...data, tagsArr: tagsArr }));
     reset();
     notify();
   };
@@ -77,9 +95,34 @@ const EditArticle = () => {
         <label className={classes.tags}>
           Tags
           <div className={classes.tag_wrapper}>
-            <input className={classes.tag} type="text" placeholder="Tag" />
-            <button className={classes.del_btn}>Delete</button>
-            <button className={classes.add_btn}>Add tag</button>
+            {tagsArr.map((tag, index) => (
+              <div key={index} className={classes.tag_row}>
+                <input
+                  className={classes.tag}
+                  type="text"
+                  placeholder="Tag"
+                  value={tag}
+                  readOnly
+                />
+                <button
+                  className={classes.del_btn}
+                  onClick={() => removeTag(index)}
+                >
+                  Delete
+                </button>
+              </div>
+            ))}
+            <div className={classes.tag_row}>
+              <input
+                ref={tagInputRef}
+                className={classes.tag}
+                type="text"
+                placeholder="Tag"
+              />
+              <button className={classes.add_btn} onClick={(e) => addTag(e)}>
+                Add tag
+              </button>
+            </div>
           </div>
         </label>
 
