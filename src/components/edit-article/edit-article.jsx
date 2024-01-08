@@ -11,7 +11,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const EditArticle = () => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState();
   const article = useSelector((state) => state.article.article);
   const params = useParams();
   const [tagsArr, setTagsArr] = useState([]);
@@ -20,8 +20,9 @@ const EditArticle = () => {
   const tagInputRef = useRef(null);
 
   useEffect(() => {
-    setData(article.filter((el) => el.slug === params.slug));
-  }, [article, params]);
+    const thisData = (article.filter((el) => el.slug === params.slug));
+    return setData(thisData)
+  }, []);
 
   const addTag = (e) => {
     e.preventDefault();
@@ -54,7 +55,6 @@ const EditArticle = () => {
   return (
     <div className={classes.wrapper}>
       <h1 className={classes.title}>Edit article</h1>
-
       <form onSubmit={handleSubmit(onSubmit)}>
         <label className={classes.title_article}>
           Title
@@ -65,11 +65,11 @@ const EditArticle = () => {
             className={classes.title_article_input}
             type="text"
             placeholder="Title"
-            defaultValue={`${data[0].title}`}
+            defaultValue={data ? data[0].title : ""}
           />
         </label>
         <div className={classes.error}>
-          {errors?.title && <p>{errors?.title?.message}</p>}
+          {errors.title && <p>{errors.title.message}</p>}
         </div>
 
         <label className={classes.description}>
@@ -81,10 +81,10 @@ const EditArticle = () => {
             className={classes.description_input}
             type="text"
             placeholder="Short description"
-            defaultValue={`${data[0].description}`}
+            defaultValue={data ? data[0].description : ""}
           />
           <div className={classes.error}>
-            {errors?.description && <p>{errors?.description?.message}</p>}
+            {errors.description && <p>{errors.description.message}</p>}
           </div>
         </label>
 
@@ -97,10 +97,10 @@ const EditArticle = () => {
             className={classes.text_input}
             type="text"
             placeholder="Text"
-            defaultValue={`${data[0].body}`}
+            defaultValue={data ? data[0].body : ""}
           />
           <div className={classes.error}>
-            {errors?.text && <p>{errors?.text?.message}</p>}
+            {errors.text && <p>{errors.text.message}</p>}
           </div>
         </label>
 
