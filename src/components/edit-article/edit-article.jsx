@@ -7,8 +7,10 @@ import { useForm } from "react-hook-form";
 import { editArticle } from "../../store/article-slice";
 import { useState } from "react";
 import { useRef } from "react";
+import { useParams } from "react-router-dom";
 
-const EditArticle = () => {
+const EditArticle = ({slug}) => {
+  const params = useParams();
   const [tagsArr, setTagsArr] = useState([]);
   const notify = () => toast.success("Article successfully edited!");
   const dispatch = useDispatch();
@@ -37,7 +39,7 @@ const EditArticle = () => {
   });
 
   const onSubmit = (data) => {
-    dispatch(editArticle({ ...data, tagsArr: tagsArr }));
+    dispatch(editArticle({ ...data, tagsArr: tagsArr, slug: params.slug }));
     reset();
     notify();
   };

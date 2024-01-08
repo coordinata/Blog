@@ -9,7 +9,7 @@ const initialState = {
 
 export const editArticle = createAsyncThunk(
   "article/editArticle",
-  async (slug, { title, description, text, tagsArr }) => {
+  async ({ title, description, text, tagsArr, slug }) => {
     const res = await axios.put(
       `https://blog.kata.academy/api/articles/${slug}`,
       {
@@ -26,6 +26,7 @@ export const editArticle = createAsyncThunk(
         },
       }
     );
+    console.log(slug)
     return res.data;
   }
 );
@@ -187,6 +188,17 @@ export const articleSlice = createSlice({
       state.loading = false;
     },
     [deleteArticle.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = true;
+    },
+    [editArticle.pending]: (state, action) => {
+      state.loading = true;
+      state.error = false;
+    },
+    [editArticle.fulfilled]: (state, action) => {
+      state.loading = false;
+    },
+    [editArticle.rejected]: (state, action) => {
       state.loading = false;
       state.error = true;
     },
