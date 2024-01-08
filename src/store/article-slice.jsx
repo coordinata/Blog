@@ -99,6 +99,8 @@ export const articleSlice = createSlice({
     },
     [createArticle.fulfilled]: (state, action) => {
       state.loading = false;
+      state.article.unshift(action.payload.article)
+   
     },
     [createArticle.rejected]: (state, action) => {
       state.loading = false;

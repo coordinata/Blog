@@ -47,7 +47,6 @@ const EditProfile = () => {
   const onSubmit = (data) => {
     dispatch(putUpdateUser(data));
     reset();
-    notify();
   };
 
   return (

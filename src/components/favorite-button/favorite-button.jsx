@@ -3,7 +3,6 @@ import { deleteLike, postLike } from "../../store/article-slice";
 import classes from "./favorite-button.module.scss";
 
 const FavotiteButton = ({ favotite, count, slug }) => {
-  console.log(favotite);
   const { auth } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const onFavorited = () => {
