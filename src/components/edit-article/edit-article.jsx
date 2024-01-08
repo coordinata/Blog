@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "./edit-article.module.scss";
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -8,13 +8,20 @@ import { editArticle } from "../../store/article-slice";
 import { useState } from "react";
 import { useRef } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const EditArticle = ({slug}) => {
+const EditArticle = () => {
+  const [data, setData] = useState({});
+  const article = useSelector((state) => state.article.article);
   const params = useParams();
   const [tagsArr, setTagsArr] = useState([]);
   const notify = () => toast.success("Article successfully edited!");
   const dispatch = useDispatch();
   const tagInputRef = useRef(null);
+
+  useEffect(() => {
+    setData(article.filter((el) => el.slug === params.slug));
+  }, [article, params]);
 
   const addTag = (e) => {
     e.preventDefault();
@@ -58,6 +65,7 @@ const EditArticle = ({slug}) => {
             className={classes.title_article_input}
             type="text"
             placeholder="Title"
+            defaultValue={`${data[0].title}`}
           />
         </label>
         <div className={classes.error}>
@@ -73,6 +81,7 @@ const EditArticle = ({slug}) => {
             className={classes.description_input}
             type="text"
             placeholder="Short description"
+            defaultValue={`${data[0].description}`}
           />
           <div className={classes.error}>
             {errors?.description && <p>{errors?.description?.message}</p>}
@@ -88,6 +97,7 @@ const EditArticle = ({slug}) => {
             className={classes.text_input}
             type="text"
             placeholder="Text"
+            defaultValue={`${data[0].body}`}
           />
           <div className={classes.error}>
             {errors?.text && <p>{errors?.text?.message}</p>}
